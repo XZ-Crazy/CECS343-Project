@@ -1,3 +1,6 @@
+/**
+ * Salesperson class
+ */
 package project;
 
 public class Salesperson
