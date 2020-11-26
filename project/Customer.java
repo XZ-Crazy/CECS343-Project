@@ -1,3 +1,6 @@
+/**
+ * Customer class
+ */
 package project;
 
 public class Customer
