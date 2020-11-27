@@ -9,57 +9,65 @@ public class Invoice
 {
 	private Customer customer;
 	private Salesperson salesperson;
-	//private HashMap<Product, Integer> productList;
+	private HashMap<Product, Integer> productList;
 	private String shippingAddress;
 	private Date dateOfPurchase;
 	private float paymentRequired;
 	private float totalPaid;
+	private float balance;// not on list of entity methods
+	private float originalBalance;// not on list of entity methods
 	
-	public Invoice(Customer customer, Salesperson salesperson, String shippingAddress, Date dateOfPurchase, float paymentRequired, float totalPaid)
+	public Invoice(Customer customer, Salesperson salesperson, HashMap<Product, Integer> productList, String shippingAddress, Date dateOfPurchase, float paymentRequired, float totalPaid)
 	{
 		this.customer = customer;
 		this.salesperson = salesperson;
+		this.productList = productList;
 		this.shippingAddress = shippingAddress;
 		this.dateOfPurchase = dateOfPurchase;
 		this.paymentRequired = paymentRequired;
 		this.totalPaid = totalPaid;
+		this.balance = paymentRequired - totalPaid;
+		this.originalBalance = paymentRequired - totalPaid; // this will never change
 	}
 	
 	public void payInvoice(float amount)
-	{}
+	{
+		this.totalPaid = totalPaid + amount;
+		this.balance = balance - totalPaid;
+	}
 	
 	public float getCurrentBalance()
 	{
-		return (Float) null;
+		return this.balance;
 	}
 	
 	public float getOriginalBalance()
 	{
-		return (Float) null;
+		return this.originalBalance;
 	}
 	
 	public Customer getCustomer()
 	{
-		return null;
+		return this.customer;
 	}
 	
 	public Salesperson getSalesperson()
 	{
-		return null;
+		return this.salesperson;
 	}
-	/*
-	public HashMap<Product, Integer> getProductList();
+	
+	public HashMap<Product, Integer> getProductList()
 	{
-		return null;
+		return this.productList;
 	}
-	*/
+	
 	public String getAddress()
 	{
-		return null;
+		return this.shippingAddress;
 	}
 	
 	public Date getDateOfPurchase()
 	{
-		return null;
+		return this.dateOfPurchase;
 	}
 }
