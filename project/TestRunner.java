@@ -32,11 +32,11 @@ public class TestRunner
 			System.out.println("Date3 = " + date3.getTime());
 			System.out.println("Date2 is more in the future than Date3");
 		}
-		else
+		if (date3.before(date2) == true)
 		{
-			System.out.println("\nDate2 = " + date2.getTime());
-			System.out.println("Date3 = " + date3.getTime());
-			System.out.println("Date2 is more in the past than Date3");
+			System.out.println("\nDate3 = " + date3.getTime());
+			System.out.println("Date2 = " + date2.getTime());
+			System.out.println("Date3 is more in the past than Date2");
 		}
 	}
 
