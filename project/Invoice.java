@@ -14,7 +14,7 @@ public class Invoice
 	private Date dateOfPurchase;
 	private float paymentRequired;
 	private float totalPaid;
-	private float balance;// not on list of entity methods
+	private float currentBalance;// not on list of entity methods
 	private float originalBalance;// not on list of entity methods
 	
 	public Invoice(Customer customer, Salesperson salesperson, HashMap<Product, Integer> productList, String shippingAddress, Date dateOfPurchase, float paymentRequired, float totalPaid)
@@ -26,19 +26,19 @@ public class Invoice
 		this.dateOfPurchase = dateOfPurchase;
 		this.paymentRequired = paymentRequired;
 		this.totalPaid = totalPaid;
-		this.balance = paymentRequired - totalPaid;
+		this.currentBalance = paymentRequired - totalPaid;
 		this.originalBalance = paymentRequired - totalPaid; // this will never change
 	}
 	
 	public void payInvoice(float amount)
 	{
 		this.totalPaid = totalPaid + amount;
-		this.balance = balance - totalPaid;
+		this.currentBalance = currentBalance - totalPaid;
 	}
 	
 	public float getCurrentBalance()
 	{
-		return this.balance;
+		return this.currentBalance;
 	}
 	
 	public float getOriginalBalance()
