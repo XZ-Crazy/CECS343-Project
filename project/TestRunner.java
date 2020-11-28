@@ -7,15 +7,19 @@ public class TestRunner
 {
 	public static void main(String[] args) 
 	{
+		/* Creates new customer */
 		Customer Sam = new Customer("Samuel Winchester", (float) 0.1, false);
 		System.out.println("Customer created -> " + Sam);
 		
+		/* Creates new salesperson/employee */
 		Salesperson Dean = new Salesperson("Dean Winchester", 0, 0, (float) 0.3);
 		System.out.println("\nSalesperson created -> " + Dean);
 		
+		/* Sets delinquency status */
 		Sam.setDelinquencyStatus(true);
 		System.out.println("\nCurrent delinquency status of " + Sam.getName() + " = " + Sam.getDelinquencyStatus());
 		
+		/* Creates current or customer dates */
 		Date date1 = new Date();
 		System.out.println("\nCurrent date is " + date1);
 		
@@ -26,6 +30,7 @@ public class TestRunner
 		date3.set(1969, 4, 20);
 		System.out.println("\ndate3 date is " + date3.getTime());
 		
+		/* Compares two different dates */
 		if (date2.after(date3) == true) // checks to see if date2 comes after date3
 		{
 			System.out.println("\nDate2 = " + date2.getTime());
