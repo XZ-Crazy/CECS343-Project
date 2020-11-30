@@ -77,5 +77,13 @@ public class Warehouse {
 		
 		return warehouseID;
 	}
-
+	
+	/**
+	 * Returns a string in a specified format.
+	 */
+	@Override
+	public String toString() {
+		
+		return "Inventory Name and ID:" + productList + "Warehouse Name: " + name + ", Address: " + this.getAddress() + ", Warehouse ID: " + warehouseID;
+	}
 }
