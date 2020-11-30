@@ -44,5 +44,38 @@ public class Warehouse {
 		this.zipCode = z;
 		this.warehouseID = w;
 	}
+	
+	/**
+	 * Entity Methods
+	 */
+	public HashMap<Product, Integer> getInventory() {
+		
+		return productList;
+	}
+	
+	public void addStock(HashMap<Product, Integer> productList) {
+		
+		productList.put(product, productID);
+	}
+	
+	public void removeStock(HashMap<Product, Integer> productList) {
+		
+		productList.remove(product, productID);
+	}
+	
+	public String getName() {
+		
+		return name;
+	}
+	
+	public String getAddress() {
+		
+		return streetAddress + "," + city + "," + state + "," + zipCode;
+	}
+	
+	public String getID() {
+		
+		return warehouseID;
+	}
 
 }
