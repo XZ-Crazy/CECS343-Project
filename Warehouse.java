@@ -5,7 +5,7 @@ package project;
  * @author Steven Duran
  * @version 1.0
  * @since 2020-11-29
- * CECS 343
+ * CECS 343 - Electronic Store Management App
  *
  */
 
@@ -84,6 +84,7 @@ public class Warehouse {
 	@Override
 	public String toString() {
 		
-		return "Inventory Name and ID:" + productList + "Warehouse Name: " + name + ", Address: " + this.getAddress() + ", Warehouse ID: " + warehouseID;
+		return "Inventory Name and ID:" + productList + "Warehouse Name: " + name + ", Address: " + this.getAddress() + 
+				", Warehouse ID: " + warehouseID;
 	}
 }
