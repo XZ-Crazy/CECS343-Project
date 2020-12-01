@@ -3,7 +3,9 @@
  */
 package project;
 
-public class Salesperson
+import java.io.Serializable;
+
+public class Salesperson implements Serializable
 {
     private String name;
     private float totalSales;
