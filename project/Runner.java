@@ -46,6 +46,8 @@ public class Runner
 			System.out.println("Date2 = " + date2.getTime());
 			System.out.println("Date3 is more in the past than Date2");
 		}
+		
+		/* Create a JSON file */
 	}
 
 }
