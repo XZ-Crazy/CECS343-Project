@@ -1,4 +1,5 @@
 module Project {
 	//exports project;
-	//requires json.simple;
+	requires json.simple;
+	requires java.json;
 }
