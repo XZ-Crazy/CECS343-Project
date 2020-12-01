@@ -1,4 +1,4 @@
 module Project {
-	requires java.json;
-	requires json.simple;
+	//exports project;
+	//requires json.simple;
 }
