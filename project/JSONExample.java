@@ -1,3 +1,4 @@
+/*
 package project;
 
 import java.io.BufferedReader;
@@ -105,3 +106,4 @@ public class JSONExample
         }
     }
 }
+*/
