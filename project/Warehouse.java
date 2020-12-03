@@ -34,15 +34,15 @@ public class Warehouse {
 		this.warehouseID = "";
 	}
 	
-	public Warehouse(HashMap<Product, Integer> pl, String n, String sa, String c, String st, String z, String w) {
+	public Warehouse(HashMap<Product, Integer> productList, String name, String streetAddress, String city, String state, String zipCode, String warehouseID) {
 		
-		this.productList = pl;
-		this.name = n;
-		this.streetAddress = sa;
-		this.city = c;
-		this.state = st;
-		this.zipCode = z;
-		this.warehouseID = w;
+		this.productList = productList;
+		this.name = name;
+		this.streetAddress = streetAddress;
+		this.city = city;
+		this.state = state;
+		this.zipCode = zipCode;
+		this.warehouseID = warehouseID;
 	}
 	
 	/**
