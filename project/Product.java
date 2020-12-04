@@ -1,13 +1,11 @@
 package project;
 
-import java.io.Serializable;
-
-public class Product implements Serializable
+public class Product
 {
     private String name;
     private float sellingPrice;
     private float costPrice;
-    int totalProductSales;
+    private float totalProductSales;
     private float totalCost;
     private float totalProfit;
     private int quantitySold;
@@ -42,7 +40,7 @@ public class Product implements Serializable
     {
         return this.costPrice;
     }
-    public int getTotalProductSales()
+    public float getTotalProductSales()
     {
         return this.totalProductSales;
     }
@@ -55,8 +53,9 @@ public class Product implements Serializable
         return this.totalProfit;
     }
     public int getQuantitySold(){ return this.quantitySold;}
-    //public float getTotalProfitPercent(){}; Probably a return based off of TotalProfit compared
-    // to some other value
+    public float getTotalProfitPercent(){
+    	return this.totalProfit / this.totalProductSales;
+    }
     /*---Mutators---*/
     public void setSellingPrice(float newSellingPrice){ this.sellingPrice = newSellingPrice;}
     public void setCostPrice(float newCostPrice){ this.costPrice = newCostPrice;}
@@ -68,11 +67,10 @@ public class Product implements Serializable
      */
     public void addStock(int x){
         this.totalCost += (this.costPrice * x);
-        this.totalProfit -= (this.costPrice * x);
     }
     public void sellStock(int y){
         this.totalProductSales += (this.sellingPrice * y);
-        this.totalProfit += (this.sellingPrice * y);
+        this.totalProfit += ((this.sellingPrice - this.costPrice) * y);
         this.quantitySold += y;
     }
 
