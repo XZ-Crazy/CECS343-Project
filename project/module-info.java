@@ -1,4 +1,4 @@
-package project;
+//package project;
 module Project {
 	//exports project;
 	requires json.simple;
