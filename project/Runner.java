@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+//import org.json.JSONException;
+//import org.json.JSONObject;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
+
+//import sun.jvmstat.perfdata.monitor.v2_0.TypeCode;
 
 public class Runner 
 {
-	public static void main(String[] args) throws JSONException 
+	public static void main(String[] args) //throws JSONException 
 	{
 		System.out.println("---Creates new customer---");
 		Customer Sam = new Customer("Samuel Winchester", (float) 0.1, false);
@@ -74,19 +78,19 @@ public class Runner
 		Gson customerJson = new Gson();
 		
 		String customerJsonString = json.toJson(customerList);
-		System.out.println(customerJsonString);
+		//System.out.println(customerJsonString);
 		
-		ArrayList <Customer> readCustomerList = json.fromJson(customerJsonString, ArrayList.class);
+		Type customerALType = new TypeToken<ArrayList<Customer>>(){}.getType();
 		
-		System.out.println(readCustomerList.get(0)); // this is not returning a customer
+		ArrayList <Customer> readCustomerList = json.fromJson(customerJsonString, customerALType);
+		
+		System.out.println(readCustomerList.get(0)); 
+		System.out.println(readCustomerList.get(1).getDelinquencyStatus()); // false
 		
 		
 		// save a hash map of the inventory and the intergers that go with it
 		// inventory stored in hashmap to be put into jsonobject
-		
-		
 
-		
 	}
 
 }
