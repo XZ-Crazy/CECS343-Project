@@ -85,4 +85,10 @@ public class Customer implements Serializable
         return lastName.compareTo(o.getLastName());
     }
     */
+
+	public void setName(String name) 
+	{
+		this.name = name;
+		
+	}
 }
