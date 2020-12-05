@@ -23,6 +23,12 @@ import java.lang.reflect.Type;
 
 //import sun.jvmstat.perfdata.monitor.v2_0.TypeCode;
 
+/**
+ * 12-5-2020 - Updates, added addCustomer and printCustomerList
+ * @author Sam
+ *
+ */
+
 public class Runner 
 {
 	public static void main(String[] args) //throws JSONException 
@@ -96,10 +102,15 @@ public class Runner
 		
 		System.out.println("\nOriginal salesperson list");
 		printSalespersonList(); 
+		System.out.println("\nOriginal customer list");
+		printCustomerList();
 		
-		System.out.println("Updated salersperson list");
+		System.out.println("\nUpdated salersperson list");
 		addSalesperson(new Salesperson("Castiel", (float) 0.0, (float) 0.0, (float) 0.0));
-		printSalespersonList(); 
+		printSalespersonList();
+		System.out.println("\nUpdated customer list");
+		addCustomer(new Customer("Garth", (float) 0.0, false));
+		printCustomerList(); // this is not printing garth
 		
 		
 		// Reading JSON File
@@ -161,12 +172,25 @@ public class Runner
 		// reads in json file
 		String salespersonJsonString = readJSONFile("salesperson").toJSONString();
 		Gson gson = new Gson();
-		Type customerType = new TypeToken<ArrayList<Salesperson>>(){}.getType();
-		ArrayList <Salesperson> readSalespersonList = gson.fromJson(salespersonJsonString, customerType);
+		Type salespersonType = new TypeToken<ArrayList<Salesperson>>(){}.getType();
+		ArrayList <Salesperson> readSalespersonList = gson.fromJson(salespersonJsonString, salespersonType);
 		readSalespersonList.add(salesperson);
 		
 		// updates json file
 		writeJSONFile(readSalespersonList, "salesperson");
+	}
+	
+	public static void addCustomer(Customer customer)
+	{
+		// reads in json file
+		String jsonString = readJSONFile("customer").toJSONString();
+		Gson gson = new Gson();
+		Type type = new TypeToken<ArrayList<Customer>>(){}.getType();
+		ArrayList <Customer> readCustomerList = gson.fromJson(jsonString, type);
+		readCustomerList.add(customer);
+		
+		// updates json file
+		writeJSONFile(readCustomerList, "customer");
 	}
 
 	public static void printSalespersonList()
@@ -181,6 +205,21 @@ public class Runner
 		for (int i = 0; i < readSalespersonList.size(); i++)
 		{
 			System.out.println(readSalespersonList.get(i));
+		}
+	}
+	
+	public static void printCustomerList()
+	{
+		// reads in json file
+		String jsonString = readJSONFile("customer").toJSONString();
+		Gson gson = new Gson();
+		Type type = new TypeToken<ArrayList<Customer>>(){}.getType();
+		ArrayList <Customer> readCustomerList = gson.fromJson(jsonString, type);
+		
+		// prints each element in array list
+		for (int i = 0; i < readCustomerList.size(); i++)
+		{
+			System.out.println(readCustomerList.get(i));
 		}
 	}
 }
@@ -209,4 +248,3 @@ System.out.println(readCustomerList.get(1).getDelinquencyStatus()); // false
 
 // save a hash map of the inventory and the intergers that go with it
 // inventory stored in hashmap to be put into jsonobject
-
