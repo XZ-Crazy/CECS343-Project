@@ -132,13 +132,13 @@ public class Runner
 	public static JSONArray readJSONFile(String className)
 	{
 		JSONParser jsonP = new JSONParser();
-		JSONArray jsonObj = null;
+		JSONArray jsonArray = null;
 		
 		try(FileReader reader = new FileReader(className + ".json"))
 		{
 			//Read JSON File
 			Object obj = jsonP.parse(reader);
-			jsonObj = (JSONArray) obj;
+			jsonArray = (JSONArray) obj;
 		}
 		catch (FileNotFoundException e)
 		{
@@ -153,7 +153,7 @@ public class Runner
 			e.printStackTrace();
 		}
 		
-		return jsonObj;
+		return jsonArray;
 	}
 	
 	public static void addSalesperson(Salesperson salesperson)
@@ -209,3 +209,4 @@ System.out.println(readCustomerList.get(1).getDelinquencyStatus()); // false
 
 // save a hash map of the inventory and the intergers that go with it
 // inventory stored in hashmap to be put into jsonobject
+
