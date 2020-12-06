@@ -126,7 +126,12 @@ public class Warehouse {
 					return o1.getValue().compareTo(o2.getValue());
 				}
 			});
+			// Put data from sorted list to inventory hashmap using for each loop
+			for(Map.Entry<Product, Integer> prod : list) {
+				inventory.put(prod.getKey(), prod.getValue());
+			}
 		}
+		return inventory;
 	}
 	
 	public String getName() {
