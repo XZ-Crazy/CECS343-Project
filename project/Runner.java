@@ -3,6 +3,7 @@ package project;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 //import org.json.JSONException;
 //import org.json.JSONObject;
@@ -44,6 +45,15 @@ public class Runner
 	    System.out.println("\n---Sets delinquency status---"); 
 		Sam.setDelinquencyStatus(true);
 		System.out.println("Current delinquency status of " + Sam.getName() + " = " + Sam.getDelinquencyStatus());
+		
+		System.out.println("\n---Creates new warehouse---");
+		HashMap<Product, Integer> inventory = new HashMap<>(); 
+		Warehouse w1 = new Warehouse(inventory, "Warehouse 1", "800 Socal Ave", "Los Angeles", "CA", "90035", "1");
+		System.out.println("Warehouse created -> " + w1);
+		Product apple = new Product("Apple", (float) 2.00, (float) 10.00);
+		inventory.put(apple, 1);
+		w1.addStock(apple, 2);
+		w1.removeStock(apple, 1);
 		
 		System.out.println("\n---Creates current or customer dates---"); 
 		Date date1 = new Date();
