@@ -114,6 +114,19 @@ public class Warehouse {
 	 */
 	public HashMap<Product, Integer> displayAscendingQuantity(HashMap<Product, Integer> inventory) {
 		
+		if(inventory.get(product) <= 5) {
+			
+			// Creating a list from elements of inventory hashmap
+			List<Map.Entry<Product, Integer>> list = new ArrayList<Map.Entry<Product, Integer>>(inventory.entrySet());
+						
+			// Sort list in ascending order with Java Collections Framework and Comparator interface
+			Collections.sort(list, new Comparator<Map.Entry<Product, Integer>>() {
+				@Override
+				public int compare(Map.Entry<Product, Integer> o1, Map.Entry<Product, Integer> o2) {
+					return o1.getValue().compareTo(o2.getValue());
+				}
+			});
+		}
 	}
 	
 	public String getName() {
