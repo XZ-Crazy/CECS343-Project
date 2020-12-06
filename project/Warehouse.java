@@ -13,7 +13,7 @@ import java.util.*;
 
 public class Warehouse {
 	
-	private HashMap<Product, Integer> productList; //inventory for warehouse
+	private HashMap<Product, Integer> inventory; //inventory for warehouse
 	private String name; //warehouse name
 	private String streetAddress;
 	private String city;
@@ -25,7 +25,7 @@ public class Warehouse {
 	
 	public Warehouse() {
 		
-		this.productList = new HashMap<Product, Integer>();
+		this.inventory = new HashMap<Product, Integer>();
 		this.streetAddress = "";
 		this.city = "";
 		this.state = "";
@@ -34,9 +34,9 @@ public class Warehouse {
 		this.warehouseID = "";
 	}
 	
-	public Warehouse(HashMap<Product, Integer> productList, String name, String streetAddress, String city, String state, String zipCode, String warehouseID) {
+	public Warehouse(HashMap<Product, Integer> inventory, String name, String streetAddress, String city, String state, String zipCode, String warehouseID) {
 		
-		this.productList = productList;
+		this.inventory = inventory;
 		this.name = name;
 		this.streetAddress = streetAddress;
 		this.city = city;
@@ -50,17 +50,17 @@ public class Warehouse {
 	 */
 	public HashMap<Product, Integer> getInventory() {
 		
-		return productList;
+		return inventory;
 	}
 	
-	public void addStock(HashMap<Product, Integer> productList) {
+	public void addStock(Product product, int quantityToAdd) {
 		
-		productList.put(product, productID);
+		inventory.put(product, quantityToAdd);
 	}
 	
-	public void removeStock(HashMap<Product, Integer> productList) {
+	public void removeStock(Product product, int quantityToRemove) {
 		
-		productList.remove(product, productID);
+		inventory.remove(product, quantityToRemove);
 	}
 	
 	public String getName() {
@@ -70,7 +70,7 @@ public class Warehouse {
 	
 	public String getAddress() {
 		
-		return streetAddress + "," + city + "," + state + "," + zipCode;
+		return streetAddress + ", " + city + ", " + state + " " + zipCode;
 	}
 	
 	public String getID() {
@@ -84,7 +84,7 @@ public class Warehouse {
 	@Override
 	public String toString() {
 		
-		return "Inventory Name and ID:" + productList + "Warehouse Name: " + name + ", Address: " + this.getAddress() + 
+		return "Inventory Name and ID:" + inventory + ", Warehouse Name: " + name + ", Address: " + this.getAddress() + 
 				", Warehouse ID: " + warehouseID;
 	}
 }
