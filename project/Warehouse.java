@@ -106,6 +106,16 @@ public class Warehouse {
 		}
 	}
 	
+	/**
+	 * Displays the products that have quantities less than or equal to 5.
+	 * This is also sorted in increasing order by quantity.
+	 * @param inventory - the inventory hashmap or maybe Product product and/or Integer integer can be params too alt.
+	 * @return the inventory
+	 */
+	public HashMap<Product, Integer> displayAscendingQuantity(HashMap<Product, Integer> inventory) {
+		
+	}
+	
 	public String getName() {
 		
 		return name;
