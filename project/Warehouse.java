@@ -82,9 +82,28 @@ public class Warehouse {
 		}
 	}
 	
+	/**
+	 * If the user wants to remove a product that's already in stock (or lower the quantity)
+	 * the function will check if a product is already in stock and if so, quantity of said 
+	 * product is decremented.
+	 * @param product - product in the inventory
+	 * @param quantityToRemove - quantity to remove from the original quantity present in the inventory
+	 */
 	public void removeStock(Product product, int quantityToRemove) {
 		
-		inventory.remove(product, quantityToRemove);
+		try {
+			// is a particular product already in stock? if so, decrement quantity of said product
+			if(inventory.containsKey(product) && inventory.get(product) > 0) {
+				
+				// quantity present is removed by the quantity that user wants to remove
+				inventory.put(product, inventory.get(product) - quantityToRemove);
+			}
+			else if(inventory.get(product) < 1) {
+				inventory.remove(product);
+			}
+		} catch(NullPointerException e) {
+			System.out.println("There is(are) no product(s) available!");
+		}
 	}
 	
 	public String getName() {
