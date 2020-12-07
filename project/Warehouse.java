@@ -93,12 +93,12 @@ public class Warehouse {
 		
 		try {
 			// is a particular product already in stock? if so, decrement quantity of said product
-			if(inventory.containsKey(product) && inventory.get(product) > 0) {
+			if(inventory.containsKey(product) && inventory.get(product) > 1) {
 				
 				// quantity present is removed by the quantity that user wants to remove
 				inventory.put(product, inventory.get(product) - quantityToRemove);
 			}
-			else if(inventory.get(product) < 1) {
+			else if(inventory.containsKey(product) && inventory.get(product) <= 1) {
 				inventory.remove(product);
 			}
 		} catch(NullPointerException e) {

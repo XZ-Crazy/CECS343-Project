@@ -57,6 +57,13 @@ public class Runner
 		w1.removeStock(apple, 1);
 		System.out.println("After removing one apple: " + w1.getInventory());
 		
+		Product chocopie = new Product("Choco Pie", (float) 1.50, (float) 5.00);
+		w1.addStock(chocopie, 1);
+		System.out.println("Added one choco pie: " + w1.getInventory());
+		
+		w1.removeStock(chocopie, 1);
+		System.out.println("Removed choco pie: " + w1.getInventory());
+		
 		System.out.println("\n---Creates current or customer dates---"); 
 		Date date1 = new Date();
 		System.out.println("Current date is " + date1);
