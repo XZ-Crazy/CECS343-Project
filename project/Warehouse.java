@@ -71,7 +71,7 @@ public class Warehouse {
 				// quantity to add is added to the quantity already present 
 				inventory.put(product, inventory.get(product) + quantityToAdd);
 			}
-			else if(inventory.isEmpty() || inventory.get(product) == 0) { // this statement is ran when adding a product that isn't already in stock
+			else if(inventory.isEmpty() || inventory.get(product) == null || inventory.get(product) == 0) { // this statement is ran when adding a product that isn't already in stock
 				inventory.put(product, quantityToAdd);
 			}
 			else { // for all other cases
