@@ -16,6 +16,9 @@ import org.json.simple.parser.ParseException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import WarehouseApp.InvoiceController;
+import WarehouseApp.WarehouseController;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -141,6 +144,11 @@ public class Runner
 		Type customerType = new TypeToken<ArrayList<Customer>>(){}.getType();
 		ArrayList <Customer> readCustomerList = gson.fromJson(customerJsonString, customerType);
 		System.out.println(readCustomerList.get(0)); 
+		
+		// Testing Warehouse and invoice Controllers
+		System.out.println("\n---Testing Warehouse and invoice Controllers---");
+		WarehouseController.initializeJSONFile();
+		InvoiceController.initializeJSONFile();
 		
 	}
 	
