@@ -71,7 +71,7 @@ public class Warehouse {
 				// quantity to add is added to the quantity already present 
 				inventory.put(product, inventory.get(product) + quantityToAdd);
 			}
-			else if(inventory.isEmpty() || inventory.get(product) == 0) { // this statement is ran when adding a product that isn't already in stock
+			else if(inventory.isEmpty() || inventory.get(product) == null || inventory.get(product) == 0) { // this statement is ran when adding a product that isn't already in stock
 				inventory.put(product, quantityToAdd);
 			}
 			else { // for all other cases
@@ -93,12 +93,12 @@ public class Warehouse {
 		
 		try {
 			// is a particular product already in stock? if so, decrement quantity of said product
-			if(inventory.containsKey(product) && inventory.get(product) > 0) {
+			if(inventory.containsKey(product) && inventory.get(product) > 1) {
 				
 				// quantity present is removed by the quantity that user wants to remove
 				inventory.put(product, inventory.get(product) - quantityToRemove);
 			}
-			else if(inventory.get(product) < 1) {
+			else if(inventory.containsKey(product) && inventory.get(product) <= 1) {
 				inventory.remove(product);
 			}
 		} catch(NullPointerException e) {

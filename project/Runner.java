@@ -47,13 +47,22 @@ public class Runner
 		System.out.println("Current delinquency status of " + Sam.getName() + " = " + Sam.getDelinquencyStatus());
 		
 		System.out.println("\n---Creates new warehouse---");
-		HashMap<Product, Integer> inventory = new HashMap<>(); 
-		Warehouse w1 = new Warehouse(inventory, "Warehouse 1", "800 Socal Ave", "Los Angeles", "CA", "90035", "1");
-		System.out.println("Warehouse created -> " + w1);
+		HashMap<Product, Integer> inventory = new HashMap<>();
 		Product apple = new Product("Apple", (float) 2.00, (float) 10.00);
 		inventory.put(apple, 1);
+		Warehouse w1 = new Warehouse(inventory, "Warehouse 1", "800 Socal Ave", "Los Angeles", "CA", "90035", "1");
+		System.out.println("Warehouse created: -> " + w1);
 		w1.addStock(apple, 2);
+		System.out.println("After adding two more apples: " + w1.getInventory());
 		w1.removeStock(apple, 1);
+		System.out.println("After removing one apple: " + w1.getInventory());
+		
+		Product chocopie = new Product("Choco Pie", (float) 1.50, (float) 5.00);
+		w1.addStock(chocopie, 1);
+		System.out.println("Added one choco pie: " + w1.getInventory());
+		
+		w1.removeStock(chocopie, 1);
+		System.out.println("Removed choco pie: " + w1.getInventory());
 		
 		System.out.println("\n---Creates current or customer dates---"); 
 		Date date1 = new Date();
