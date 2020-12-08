@@ -168,13 +168,36 @@ public class WarehouseController
 //		}
 //		return products;
 //	}
+	
+	/**
+	 * Adds a warehouse
+	 * @param inventory
+	 * @param name
+	 * @param address
+	 * @param city
+	 * @param state
+	 * @param zipCode
+	 * @param phoneNumber
+	 * @param warehouseID
+	 * @return boolean true
+	 */
+	public static boolean addWarehouse(HashMap<Product, Integer> inventory, String name, String address, String city, String state, String zipCode, String phoneNumber, String warehouseID) {
+		
+		Warehouse wObj = new Warehouse(inventory, name, address, city, state, zipCode, phoneNumber, warehouseID);
+		for(int i = 0; i < warehouses.size(); i++) {
+			if(warehouses.get(i).equals(wObj))
+				return false;
+		}
+		warehouses.add(wObj);
+		return true;
+	}
 		
 	/**
 	 * Adds a product to the warehouse
 	 * @param name
 	 * @param price
 	 * @param cost
-	 * @return boolean
+	 * @return boolean true
 	 */
 	public static boolean addProduct(String name, float price, float cost) {
 		
