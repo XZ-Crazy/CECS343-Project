@@ -23,8 +23,9 @@ public class WarehouseController
 {
 	private static ArrayList<Warehouse> warehouses;
 	private static ArrayList<Product> products;
-	//private static Warehouse wObj;
-	//private static Product pObj;
+	private static Warehouse wObj;
+	private static Product pObj;
+	private static int quantityToAdd;
 	
 	public static void initializeJSONFile()
 	{
@@ -183,7 +184,7 @@ public class WarehouseController
 	 */
 	public static boolean addWarehouse(HashMap<Product, Integer> inventory, String name, String address, String city, String state, String zipCode, String phoneNumber, String warehouseID) {
 		
-		Warehouse wObj = new Warehouse(inventory, name, address, city, state, zipCode, phoneNumber, warehouseID);
+		wObj = new Warehouse(inventory, name, address, city, state, zipCode, phoneNumber, warehouseID);
 		for(int i = 0; i < warehouses.size(); i++) {
 			if(warehouses.get(i).equals(wObj))
 				return false;
@@ -201,12 +202,46 @@ public class WarehouseController
 	 */
 	public static boolean addProduct(String name, float price, float cost) {
 		
-		Product pObj = new Product(name, price, cost);
+		pObj = new Product(name, price, cost);
 		for(int i = 0; i < products.size(); i++) {
 			if(products.get(i).equals(pObj))
 				return false;
 		}
 		products.add(pObj);
 		return true;
+	}
+	
+	/**
+	 * Adds stock to the warehouse
+	 * @param warehouse - instance of the Warehouse class
+	 * @param inventory - inventory that contains products and quantities
+	 */
+	public static void addStock(Warehouse warehouse, HashMap<Product, Integer> inventory) {
+		
+		//pObj = (Product) inventory.keySet();
+		
+		// value of the inventory
+		//int quantityToAdd = inventory.get(pObj);
+		/*
+		 * Add product and quantity to inventory to have at least one product in the warehouse.
+		 * This eliminates the error-condition of the database not containing at least one product
+		 * before adding any product (use case #4)
+		 */
+		inventory.put(pObj, quantityToAdd);
+		
+		/*
+		 * For all warehouses, call addStock() from Warehouse class to add Product and Quantity.
+		 * Then compare if the elements in warehouses arrayLists are equal to the instances of Warehouse Entity Object
+		 * Finally, add the instance of Warehouse to the warehouses ArrayList
+		 */
+		for(int i = 0; i < warehouses.size(); i++) {
+//			if(inventory.containsKey(pObj)) {
+//				warehouse.addStock(pObj, quantityToAdd);
+//			}
+			//inventory.put(pObj, quantityToAdd);
+			warehouse.addStock(pObj, quantityToAdd);
+			warehouses.get(i).equals(warehouse);
+		}
+		warehouses.add(warehouse);
 	}
 }
