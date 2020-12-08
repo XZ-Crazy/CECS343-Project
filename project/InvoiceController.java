@@ -1,9 +1,6 @@
 package project;
 
 import java.util.*;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -18,6 +15,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
+
 
 public class InvoiceController 
 {
@@ -189,4 +187,48 @@ public class InvoiceController
 			e.printStackTrace();
 		}
 	}
+	
+	public static boolean addCustomer(String name, float taxPercentage) {
+		Customer temp = new Customer(name, taxPercentage, false);
+		for(int i = 0; i < customers.size(); i++) {
+			if (customers.get(i).equals(temp))
+				return false;
+		}
+		customers.add(temp);
+		return true;
+	}
+	
+	public static boolean addSalesperson(String name, float totalSales, float totalCommission, float commissionRate) {
+		Salesperson temp = new Salesperson(name, totalSales, totalCommission, commissionRate);
+		for(int i = 0; i < salespersons.size(); i++) {
+			if(salespersons.get(i).equals(temp))
+				return false;
+		}
+		salespersons.add(temp);
+		return true;
+	}
+	// We can change dateOfPurchase accordingly if needed
+	// I'm assuming that the customer pays a certain amount upfront for the totalPaid to be applicable
+	public static boolean addInvoice(Customer customer, Salesperson salesperson, HashMap<Product, Integer> productList, String shippingAddress, float totalPaid) {
+		float paymentRequired = 0;
+		for (Map.Entry<Product, Integer> entry : productList.entrySet())  
+            paymentRequired += entry.getKey().getSellingPrice() * entry.getValue();
+		Date dateOfPurchase = new Date();
+		Invoice temp = new Invoice(customer, salesperson, productList, shippingAddress, dateOfPurchase, paymentRequired, totalPaid);
+		invoices.add(temp);
+		return true;
+	}
+	/*
+	public static ArrayList<Invoice> getInvoices()
+	public static ArrayList<Customer> getCustomer()
+	public static ArrayList<Salesperson> getSalespersons()
+	public static boolean addCustomer(String name, float tax)
+	public static boolean addSalesperson(String name, float commission)
+	public static boolean addInvoice(Customer customer, Salesperson salesperson, Hashmap<Product, Integer>) //Don't forget to add the current date
+	public static boolean isDelinquent(Customer customer)
+	public static boolean makePayment(Invoice invoice, float payment)
+	public static String printOpenInvoices()
+	public static String printClosedInvoices()
+	public static String printEmployeeSales()
+	*/
 }
