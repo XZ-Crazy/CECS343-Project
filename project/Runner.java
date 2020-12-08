@@ -3,6 +3,7 @@
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 //import org.json.JSONException;
 //import org.json.JSONObject;
@@ -15,6 +16,9 @@ import org.json.simple.parser.ParseException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import WarehouseApp.InvoiceController;
+import WarehouseApp.WarehouseController;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -22,6 +26,12 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 
 //import sun.jvmstat.perfdata.monitor.v2_0.TypeCode;
+
+/**
+ * 12-5-2020 - Updates, added addCustomer and printCustomerList
+ * @author Sam
+ *
+ */
 
 public class Runner 
 {
@@ -38,6 +48,24 @@ public class Runner
 	    System.out.println("\n---Sets delinquency status---"); 
 		Sam.setDelinquencyStatus(true);
 		System.out.println("Current delinquency status of " + Sam.getName() + " = " + Sam.getDelinquencyStatus());
+		
+		System.out.println("\n---Creates new warehouse---");
+		HashMap<Product, Integer> inventory = new HashMap<>();
+		Product apple = new Product("Apple", (float) 2.00, (float) 10.00);
+		inventory.put(apple, 1);
+		Warehouse w1 = new Warehouse(inventory, "Warehouse 1", "800 Socal Ave", "Los Angeles", "CA", "90035", "1");
+		System.out.println("Warehouse created: -> " + w1);
+		w1.addStock(apple, 2);
+		System.out.println("After adding two more apples: " + w1.getInventory());
+		w1.removeStock(apple, 1);
+		System.out.println("After removing one apple: " + w1.getInventory());
+		
+		Product chocopie = new Product("Choco Pie", (float) 1.50, (float) 5.00);
+		w1.addStock(chocopie, 1);
+		System.out.println("Added one choco pie: " + w1.getInventory());
+		
+		w1.removeStock(chocopie, 1);
+		System.out.println("Removed choco pie: " + w1.getInventory());
 		
 		System.out.println("\n---Creates current or customer dates---"); 
 		Date date1 = new Date();
@@ -96,10 +124,15 @@ public class Runner
 		
 		System.out.println("\nOriginal salesperson list");
 		printSalespersonList(); 
+		System.out.println("\nOriginal customer list");
+		printCustomerList();
 		
-		System.out.println("Updated salersperson list");
+		System.out.println("\nUpdated salersperson list");
 		addSalesperson(new Salesperson("Castiel", (float) 0.0, (float) 0.0, (float) 0.0));
-		printSalespersonList(); 
+		printSalespersonList();
+		System.out.println("\nUpdated customer list");
+		addCustomer(new Customer("Garth", (float) 0.0, false));
+		printCustomerList(); // this is not printing garth
 		
 		
 		// Reading JSON File
@@ -111,6 +144,11 @@ public class Runner
 		Type customerType = new TypeToken<ArrayList<Customer>>(){}.getType();
 		ArrayList <Customer> readCustomerList = gson.fromJson(customerJsonString, customerType);
 		System.out.println(readCustomerList.get(0)); 
+		
+		// Testing Warehouse and invoice Controllers
+		System.out.println("\n---Testing Warehouse and invoice Controllers---");
+		WarehouseController.initializeJSONFile();
+		InvoiceController.initializeJSONFile();
 		
 	}
 	
@@ -132,13 +170,13 @@ public class Runner
 	public static JSONArray readJSONFile(String className)
 	{
 		JSONParser jsonP = new JSONParser();
-		JSONArray jsonObj = null;
+		JSONArray jsonArray = null;
 		
 		try(FileReader reader = new FileReader(className + ".json"))
 		{
 			//Read JSON File
 			Object obj = jsonP.parse(reader);
-			jsonObj = (JSONArray) obj;
+			jsonArray = (JSONArray) obj;
 		}
 		catch (FileNotFoundException e)
 		{
@@ -153,7 +191,7 @@ public class Runner
 			e.printStackTrace();
 		}
 		
-		return jsonObj;
+		return jsonArray;
 	}
 	
 	public static void addSalesperson(Salesperson salesperson)
@@ -161,12 +199,25 @@ public class Runner
 		// reads in json file
 		String salespersonJsonString = readJSONFile("salesperson").toJSONString();
 		Gson gson = new Gson();
-		Type customerType = new TypeToken<ArrayList<Salesperson>>(){}.getType();
-		ArrayList <Salesperson> readSalespersonList = gson.fromJson(salespersonJsonString, customerType);
+		Type salespersonType = new TypeToken<ArrayList<Salesperson>>(){}.getType();
+		ArrayList <Salesperson> readSalespersonList = gson.fromJson(salespersonJsonString, salespersonType);
 		readSalespersonList.add(salesperson);
 		
 		// updates json file
 		writeJSONFile(readSalespersonList, "salesperson");
+	}
+	
+	public static void addCustomer(Customer customer)
+	{
+		// reads in json file
+		String jsonString = readJSONFile("customer").toJSONString();
+		Gson gson = new Gson();
+		Type type = new TypeToken<ArrayList<Customer>>(){}.getType();
+		ArrayList <Customer> readCustomerList = gson.fromJson(jsonString, type);
+		readCustomerList.add(customer);
+		
+		// updates json file
+		writeJSONFile(readCustomerList, "customer");
 	}
 
 	public static void printSalespersonList()
@@ -181,6 +232,21 @@ public class Runner
 		for (int i = 0; i < readSalespersonList.size(); i++)
 		{
 			System.out.println(readSalespersonList.get(i));
+		}
+	}
+	
+	public static void printCustomerList()
+	{
+		// reads in json file
+		String jsonString = readJSONFile("customer").toJSONString();
+		Gson gson = new Gson();
+		Type type = new TypeToken<ArrayList<Customer>>(){}.getType();
+		ArrayList <Customer> readCustomerList = gson.fromJson(jsonString, type);
+		
+		// prints each element in array list
+		for (int i = 0; i < readCustomerList.size(); i++)
+		{
+			System.out.println(readCustomerList.get(i));
 		}
 	}
 }

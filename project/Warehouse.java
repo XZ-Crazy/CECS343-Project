@@ -13,7 +13,7 @@ import java.util.*;
 
 public class Warehouse {
 	
-	private HashMap<Product, Integer> productList; //inventory for warehouse
+	private HashMap<Product, Integer> inventory; //inventory for warehouse
 	private String name; //warehouse name
 	private String streetAddress;
 	private String city;
@@ -25,7 +25,7 @@ public class Warehouse {
 	
 	public Warehouse() {
 		
-		this.productList = new HashMap<Product, Integer>();
+		this.inventory = new HashMap<Product, Integer>();
 		this.streetAddress = "";
 		this.city = "";
 		this.state = "";
@@ -34,9 +34,9 @@ public class Warehouse {
 		this.warehouseID = "";
 	}
 	
-	public Warehouse(HashMap<Product, Integer> productList, String name, String streetAddress, String city, String state, String zipCode, String warehouseID) {
+	public Warehouse(HashMap<Product, Integer> inventory, String name, String streetAddress, String city, String state, String zipCode, String warehouseID) {
 		
-		this.productList = productList;
+		this.inventory = inventory;
 		this.name = name;
 		this.streetAddress = streetAddress;
 		this.city = city;
@@ -50,17 +50,88 @@ public class Warehouse {
 	 */
 	public HashMap<Product, Integer> getInventory() {
 		
-		return productList;
+		return inventory;
 	}
 	
-	public void addStock(HashMap<Product, Integer> productList) {
+	/**
+	 * If the user wants to add a product that's already in stock (or increase the quantity)
+	 * the function will check if a product is already in stock and if so, quantity of said 
+	 * product is incremented. But if the user wants to add a new product, they can still do so.
+	 * 
+	 * @param product - product in the inventory
+	 * @param quantityToAdd - quantity added to the original quantity present in the inventory
+	 */
+	public void addStock(Product product, int quantityToAdd) {
 		
-		productList.put(product, productID);
+		try {
+			// is a particular product already in stock? if so, increment quantity of said product
+			if(inventory.containsKey(product) && inventory.get(product) > 0) {
+				
+				// inventory.get(product) returns the value/quantity of the product
+				// quantity to add is added to the quantity already present 
+				inventory.put(product, inventory.get(product) + quantityToAdd);
+			}
+			else if(inventory.isEmpty() || inventory.get(product) == null || inventory.get(product) == 0) { // this statement is ran when adding a product that isn't already in stock
+				inventory.put(product, quantityToAdd);
+			}
+			else { // for all other cases
+				inventory.put(product, quantityToAdd);
+			}
+		} catch(NullPointerException e) {
+			System.out.println("There is(are) no product(s) available!");
+		}
 	}
 	
-	public void removeStock(HashMap<Product, Integer> productList) {
+	/**
+	 * If the user wants to remove a product that's already in stock (or lower the quantity)
+	 * the function will check if a product is already in stock and if so, quantity of said 
+	 * product is decremented.
+	 * @param product - product in the inventory
+	 * @param quantityToRemove - quantity to remove from the original quantity present in the inventory
+	 */
+	public void removeStock(Product product, int quantityToRemove) {
 		
-		productList.remove(product, productID);
+		try {
+			// is a particular product already in stock? if so, decrement quantity of said product
+			if(inventory.containsKey(product) && inventory.get(product) > 1) {
+				
+				// quantity present is removed by the quantity that user wants to remove
+				inventory.put(product, inventory.get(product) - quantityToRemove);
+			}
+			else if(inventory.containsKey(product) && inventory.get(product) <= 1) {
+				inventory.remove(product);
+			}
+		} catch(NullPointerException e) {
+			System.out.println("There is(are) no product(s) available!");
+		}
+	}
+	
+	/**
+	 * Displays the products that have quantities less than or equal to 5.
+	 * This is also sorted in increasing order by quantity.
+	 * @param inventory - the inventory hashmap or maybe Product product and/or Integer integer can be params too alt.
+	 * @return the inventory
+	 */
+	public HashMap<Product, Integer> displayAscendingQuantity(HashMap<Product, Integer> inventory) {
+		
+		if(inventory.get(product) <= 5) {
+			
+			// Creating a list from elements of inventory hashmap
+			List<Map.Entry<Product, Integer>> list = new ArrayList<Map.Entry<Product, Integer>>(inventory.entrySet());
+						
+			// Sort list in ascending order with Java Collections Framework and Comparator interface
+			Collections.sort(list, new Comparator<Map.Entry<Product, Integer>>() {
+				@Override
+				public int compare(Map.Entry<Product, Integer> o1, Map.Entry<Product, Integer> o2) {
+					return o1.getValue().compareTo(o2.getValue());
+				}
+			});
+			// Put data from sorted list to inventory hashmap using for each loop
+			for(Map.Entry<Product, Integer> prod : list) {
+				inventory.put(prod.getKey(), prod.getValue());
+			}
+		}
+		return inventory;
 	}
 	
 	public String getName() {
@@ -70,7 +141,7 @@ public class Warehouse {
 	
 	public String getAddress() {
 		
-		return streetAddress + "," + city + "," + state + "," + zipCode;
+		return streetAddress + ", " + city + ", " + state + " " + zipCode;
 	}
 	
 	public String getID() {
@@ -84,7 +155,7 @@ public class Warehouse {
 	@Override
 	public String toString() {
 		
-		return "Inventory Name and ID:" + productList + "Warehouse Name: " + name + ", Address: " + this.getAddress() + 
+		return "Inventory Name and ID:" + inventory + ", Warehouse Name: " + name + ", Address: " + this.getAddress() + 
 				", Warehouse ID: " + warehouseID;
 	}
 }
