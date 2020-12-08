@@ -2,6 +2,7 @@ package project;
 
 import java.util.HashMap;
 import java.text.DateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -70,4 +71,9 @@ public class Invoice
 	{
 		return this.dateOfPurchase;
 	}
+	public String toString()
+    {
+        return "Customer Name: " + customer.getName() + ", Salesperson: " + salesperson.getName() + ", Product List: " + Arrays.asList(productList) + ", Shipping Address: "
+    + shippingAddress + ", Date:" + dateOfPurchase.toString() + ", Payment Required: " + paymentRequired + ", Total Paid: " + totalPaid;
+    }   
 }
