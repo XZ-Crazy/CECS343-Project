@@ -142,11 +142,20 @@ public class WarehouseController
 	
 	/**
 	 * Returns the products in the warehouse
-	 * @return products
+	 * @return products arrayList
 	 */
 	public static ArrayList<Product> getProducts() {
 		
 		return products;
+	}
+	
+	/**
+	 * Returns the warehouses
+	 * @return warehouses arrayList
+	 */
+	public static ArrayList<Warehouse> getWarehouses() {
+		
+		return warehouses;
 	}
 	
 //	/**
