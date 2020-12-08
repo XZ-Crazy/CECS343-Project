@@ -23,6 +23,8 @@ public class WarehouseController
 {
 	private static ArrayList<Warehouse> warehouses;
 	private static ArrayList<Product> products;
+	//private static Warehouse wObj;
+	//private static Product pObj;
 	
 	public static void initializeJSONFile()
 	{
@@ -136,5 +138,43 @@ public class WarehouseController
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Returns the products in the warehouse
+	 * @return products
+	 */
+	public static ArrayList<Product> getProducts() {
+		
+		return products;
+	}
+	
+//	/**
+//	 * Gets all of the products in the warehouse
+//	 * @return products
+//	 */
+//	public static ArrayList<Product> getProducts() {
+//		for(int i = 0; i < products.size(); i++) {
+//			products.get(i);
+//		}
+//		return products;
+//	}
+		
+	/**
+	 * Adds a product to the warehouse
+	 * @param name
+	 * @param price
+	 * @param cost
+	 * @return boolean
+	 */
+	public static boolean addProduct(String name, float price, float cost) {
+		
+		Product pObj = new Product(name, price, cost);
+		for(int i = 0; i < products.size(); i++) {
+			if(products.get(i).equals(pObj))
+				return false;
+		}
+		products.add(pObj);
+		return true;
 	}
 }
