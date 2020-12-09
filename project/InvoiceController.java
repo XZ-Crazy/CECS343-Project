@@ -19,9 +19,9 @@ import java.lang.reflect.Type;
 
 public class InvoiceController 
 {
-	private static ArrayList<Invoice> invoices;
-	private static ArrayList<Customer> customers;
-	private static ArrayList<Salesperson> salespersons;
+	private static ArrayList<Invoice> invoices = new ArrayList<Invoice>();
+	private static ArrayList<Customer> customers = new ArrayList<Customer>();
+	private static ArrayList<Salesperson> salespersons = new ArrayList<Salesperson>();
 	
 	public static void initializeJSONFile()
 	{
@@ -190,11 +190,15 @@ public class InvoiceController
 	
 	public static boolean addCustomer(String name, float taxPercentage) {
 		Customer temp = new Customer(name, taxPercentage, false);
-		for(int i = 0; i < customers.size(); i++) {
-			if (customers.get(i).equals(temp))
-				return false;
+		if(customers.isEmpty())
+			customers.add(temp);
+		else {
+			for(int i = 0; i < customers.size(); i++) {
+				if (customers.get(i).equals(temp))
+					return false;
+			}
+			customers.add(temp);
 		}
-		customers.add(temp);
 		return true;
 	}
 	
@@ -254,8 +258,9 @@ public class InvoiceController
 	public static boolean makePayment(Invoice invoice, float payment) {
 		if(invoices.contains(invoice)) {
 			Date curr = new Date();
-			// To find if this payment is within 10 days of making the purchase to deduct 10% or after 30 to charge 2% more
+			// To find if this payment is within 10 days of making the purchase to deduct 10% and completely pays it off
 			int diffDays = (int) (Math.abs(invoice.getDateOfPurchase().getTime() - curr.getTime()) / (24 * 60 * 60 * 1000) );
+			// May have to adjust invoice.payInvoice(invoice.getCurrentBalance()); to make currentBalance = 0
 			if(invoice.getCurrentBalance() == payment && diffDays <= 10) {
 				float nPay = (float) (invoice.getPaymentRequired() * .90);
 				invoice.setPaymentRequired(nPay);
@@ -270,15 +275,68 @@ public class InvoiceController
 	}
 	
 	public static String printOpenInvoices() {
-		ArrayList<Invoice> temp = invoices;
-		String sTemp = "";
-		Collections.sort(temp);
-		for(Invoice str : temp)
-			sTemp += temp;
-		return sTemp;
+		HashMap<Invoice, Integer> list = new HashMap<Invoice, Integer>();
+		String temp = "";
+		
+		for(int i = 0; i < invoices.size(); i++) {
+			if(invoices.get(i).getCurrentBalance() > 0)
+				list.put(invoices.get(i), invoices.get(i).getDateOfPurchase().getDate());
+		}
+		
+		// Creating a list from elements of inventory hashmap
+		List<Map.Entry<Invoice, Integer>> sortedOpenInvoices = new ArrayList<Map.Entry<Invoice, Integer>>(list.entrySet());
+		
+		// Sort list in ascending order with Java Collections Framework and Comparator interface
+		Collections.sort(sortedOpenInvoices, new Comparator<Map.Entry<Invoice, Integer>>() {
+			@Override
+			public int compare(Map.Entry<Invoice, Integer> o1, Map.Entry<Invoice, Integer> o2) {
+				   return o1.getValue().compareTo(o2.getValue());
+			}
+		});
+		
+		// Put data from sorted list to inventory hashmap using for each loop
+		for(Map.Entry<Invoice, Integer> prod : sortedOpenInvoices) {
+			list.put(prod.getKey(), prod.getValue());
+//			System.out.println("Products: " + prod.getKey() + ", Quantity: " + prod.getValue());
+			temp += prod.getKey() + "\n";
+		}
+		System.out.println(temp);
+		return temp;
+	}
+	
+	
+	
+	
+	public static String printClosedInvoices() {
+		HashMap<Invoice, Float> list = new HashMap<Invoice, Float>();
+		String temp = "";
+		
+		for(int i = 0; i < invoices.size(); i++) {
+			if(invoices.get(i).getCurrentBalance() >= 0)
+				list.put(invoices.get(i), invoices.get(i).getPaymentRequired());
+		}
+		
+		// Creating a list from elements of inventory hashmap
+		List<Map.Entry<Invoice, Float>> sortedOpenInvoices = new ArrayList<Map.Entry<Invoice, Float>>(list.entrySet());
+		
+		// Sort list in ascending order with Java Collections Framework and Comparator interface
+		Collections.sort(sortedOpenInvoices, new Comparator<Map.Entry<Invoice, Float>>() {
+			@Override
+			public int compare(Map.Entry<Invoice, Float> o1, Map.Entry<Invoice, Float> o2) {
+				   return o2.getValue().compareTo(o1.getValue());
+			}
+		});
+		
+		// Put data from sorted list to inventory hashmap using for each loop
+		for(Map.Entry<Invoice, Float> prod : sortedOpenInvoices) {
+			list.put(prod.getKey(), prod.getValue());
+//			System.out.println("Products: " + prod.getKey() + ", Quantity: " + prod.getValue());
+			temp += prod.getKey() + "\n";
+		}
+		System.out.println(temp);
+		return temp;
 	}
 	/*
-	public static String printClosedInvoices()
 	public static String printEmployeeSales()
 	*/
 }
