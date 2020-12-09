@@ -16,8 +16,8 @@ import org.json.simple.parser.ParseException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import WarehouseApp.InvoiceController;
-import WarehouseApp.WarehouseController;
+import project.InvoiceController;
+import project.WarehouseController;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -49,23 +49,42 @@ public class Runner
 		Sam.setDelinquencyStatus(true);
 		System.out.println("Current delinquency status of " + Sam.getName() + " = " + Sam.getDelinquencyStatus());
 		
-		System.out.println("\n---Creates new warehouse---");
+//		System.out.println("\n---Creates new warehouse---");
 		HashMap<Product, Integer> inventory = new HashMap<>();
-		Product apple = new Product("Apple", (float) 2.00, (float) 10.00);
-		inventory.put(apple, 1);
-		Warehouse w1 = new Warehouse(inventory, "Warehouse 1", "800 Socal Ave", "Los Angeles", "CA", "90035", "5623336425", "1");
-		System.out.println("Warehouse created: -> " + w1);
-		w1.addStock(apple, 2);
-		System.out.println("After adding two more apples: " + w1.getInventory());
-		w1.removeStock(apple, 1);
-		System.out.println("After removing one apple: " + w1.getInventory());
+//		Product apple = new Product("Apple", (float) 2.00, (float) 10.00);
+//		inventory.put(apple, 1);
+//		Warehouse w1 = new Warehouse(inventory, "Warehouse 1", "800 Socal Ave", "Los Angeles", "CA", "90035", "5623336425", "1");
+//		System.out.println("Warehouse created: -> " + w1);
+//		w1.addStock(apple, 2);
+//		System.out.println("After adding two more apples: " + w1.getInventory());
+//		w1.removeStock(apple, 1);
+//		System.out.println("After removing one apple: " + w1.getInventory());
+//		
+//		Product chocopie = new Product("Choco Pie", (float) 1.50, (float) 5.00);
+//		w1.addStock(chocopie, 1);
+//		System.out.println("Added one choco pie: " + w1.getInventory());
+//		
+//		w1.removeStock(chocopie, 1);
+//		System.out.println("Removed choco pie: " + w1.getInventory());
 		
-		Product chocopie = new Product("Choco Pie", (float) 1.50, (float) 5.00);
-		w1.addStock(chocopie, 1);
-		System.out.println("Added one choco pie: " + w1.getInventory());
+		System.out.println("\n---Warehouse Controller---");
+		//WarehouseController wc = new WarehouseController();
+		//Warehouse w1 = new Warehouse();
 		
-		w1.removeStock(chocopie, 1);
-		System.out.println("Removed choco pie: " + w1.getInventory());
+		System.out.println(WarehouseController.addWarehouse(inventory, "Warehouse 1", "800 Socal Ave", "Los Angeles", "CA", "90035", "5623336425", "1"));
+		System.out.println(WarehouseController.getWarehouses());
+		System.out.println(WarehouseController.addProduct("Blueberry", 200.00f, 100.00f));
+		System.out.println(WarehouseController.getProducts());
+		//Warehouse w1 = new Warehouse();
+		//Warehouse w1 = new Warehouse();
+		//Product prod = new Product("pizza", 5.00f, 100.00f);
+		ArrayList<Warehouse> w = new ArrayList<Warehouse>();
+		//WarehouseController.addStock(prod, 1);
+		//System.out.println(WarehouseController.checkInStock(inventory));
+		//System.out.println(WarehouseController.getProducts());
+		//WarehouseController.printStockIn();
+		//System.out.println(WarehouseController.getProducts());
+		//System.out.println(WarehouseController.printStockIn());
 		
 		System.out.println("\n---Creates current or customer dates---"); 
 		Date date1 = new Date();
