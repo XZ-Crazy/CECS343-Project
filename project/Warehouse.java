@@ -19,6 +19,7 @@ public class Warehouse {
 	private String city;
 	private String state;
 	private String zipCode;
+	private String phoneNumber;
 	private String warehouseID; //ID of warehouse
 	private Product product; //not included in List of Entity Methods
 	private Integer productID; //not included in List of Entity Methods
@@ -31,10 +32,11 @@ public class Warehouse {
 		this.state = "";
 		this.zipCode = "";
 		this.name = "";
+		this.phoneNumber = "";
 		this.warehouseID = "";
 	}
 	
-	public Warehouse(HashMap<Product, Integer> inventory, String name, String streetAddress, String city, String state, String zipCode, String warehouseID) {
+	public Warehouse(HashMap<Product, Integer> inventory, String name, String streetAddress, String city, String state, String zipCode, String phoneNumber, String warehouseID) {
 		
 		this.inventory = inventory;
 		this.name = name;
@@ -42,6 +44,7 @@ public class Warehouse {
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
+		this.phoneNumber = phoneNumber;
 		this.warehouseID = warehouseID;
 	}
 	
@@ -149,6 +152,11 @@ public class Warehouse {
 		return warehouseID;
 	}
 	
+	public String getphoneNumber() {
+		
+		return phoneNumber;
+	}
+	
 	/**
 	 * Returns a string in a specified format.
 	 */
@@ -156,6 +164,6 @@ public class Warehouse {
 	public String toString() {
 		
 		return "Inventory Name and ID:" + inventory + ", Warehouse Name: " + name + ", Address: " + this.getAddress() + 
-				", Warehouse ID: " + warehouseID;
+				", Phone Number: " + phoneNumber + ", Warehouse ID: " + warehouseID;
 	}
 }
