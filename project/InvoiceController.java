@@ -1,4 +1,4 @@
-package project;
+package pkg;
 
 import java.util.*;
 
@@ -218,16 +218,66 @@ public class InvoiceController
 		invoices.add(temp);
 		return true;
 	}
+	
+	public static ArrayList<Invoice> getInvoices(){
+		return invoices;
+	}
+	
+	public static ArrayList<Customer> getCustomer(){
+		return customers;
+	}
+		
+	
+	public static ArrayList<Salesperson> getSalespersons(){
+		return salespersons;
+	}
+		
+	
+	
+	public static boolean isDelinquent(Customer customer) {
+		return customer.getDelinquencyStatus();
+		/* I wrote this without thinking about what this method wanted, if we need it later we can use it
+		 * It's basically a DelinquentStatusChanger based off customer
+		Date temp = new Date();
+		Date check = new Date();
+		for(int i = 0; i < invoices.size(); i++) {
+			if(invoices.get(i).getCustomer().equals(customer))
+				temp = invoices.get(i).getDateOfPurchase();
+		}
+		long diff = Math.abs(temp.getTime() - check.getTime());
+		int diffDays = (int) (diff / 24 * 60 * 60 * 1000);
+		if(diffDays > 30)
+			customer.setDelinquencyStatus(true);
+		 */
+	}
+	
+	public static boolean makePayment(Invoice invoice, float payment) {
+		if(invoices.contains(invoice)) {
+			Date curr = new Date();
+			// To find if this payment is within 10 days of making the purchase to deduct 10% or after 30 to charge 2% more
+			int diffDays = (int) (Math.abs(invoice.getDateOfPurchase().getTime() - curr.getTime()) / (24 * 60 * 60 * 1000) );
+			if(invoice.getCurrentBalance() == payment && diffDays <= 10) {
+				float nPay = (float) (invoice.getPaymentRequired() * .90);
+				invoice.setPaymentRequired(nPay);
+				invoice.payInvoice(invoice.getCurrentBalance());
+				return true;
+			}
+			invoice.payInvoice(payment);
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	public static String printOpenInvoices() {
+		ArrayList<Invoice> temp = invoices;
+		String sTemp = "";
+		Collections.sort(temp);
+		for(Invoice str : temp)
+			sTemp += temp;
+		return sTemp;
+	}
 	/*
-	public static ArrayList<Invoice> getInvoices()
-	public static ArrayList<Customer> getCustomer()
-	public static ArrayList<Salesperson> getSalespersons()
-	public static boolean addCustomer(String name, float tax)
-	public static boolean addSalesperson(String name, float commission)
-	public static boolean addInvoice(Customer customer, Salesperson salesperson, Hashmap<Product, Integer>) //Don't forget to add the current date
-	public static boolean isDelinquent(Customer customer)
-	public static boolean makePayment(Invoice invoice, float payment)
-	public static String printOpenInvoices()
 	public static String printClosedInvoices()
 	public static String printEmployeeSales()
 	*/
