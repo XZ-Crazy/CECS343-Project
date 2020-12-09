@@ -300,7 +300,6 @@ public class InvoiceController
 //			System.out.println("Products: " + prod.getKey() + ", Quantity: " + prod.getValue());
 			temp += prod.getKey() + "\n";
 		}
-		System.out.println(temp);
 		return temp;
 	}
 	
@@ -312,7 +311,7 @@ public class InvoiceController
 		String temp = "";
 		
 		for(int i = 0; i < invoices.size(); i++) {
-			if(invoices.get(i).getCurrentBalance() >= 0)
+			if(invoices.get(i).getCurrentBalance() <= 0)
 				list.put(invoices.get(i), invoices.get(i).getPaymentRequired());
 		}
 		
@@ -333,10 +332,16 @@ public class InvoiceController
 //			System.out.println("Products: " + prod.getKey() + ", Quantity: " + prod.getValue());
 			temp += prod.getKey() + "\n";
 		}
-		System.out.println(temp);
 		return temp;
 	}
-	/*
-	public static String printEmployeeSales()
-	*/
+	
+	public static String printEmployeeSales() {
+		String temp = "";
+		for(int i = 0; i < salespersons.size(); i++) {
+			temp += "Name: " + salespersons.get(i).getName() + " Total Sales: " + salespersons.get(i).getTotalSales() + 
+					" Total Commission: " + salespersons.get(i).getTotalCommission() + "\n";
+		}
+		return temp;
+	}
+	
 }
