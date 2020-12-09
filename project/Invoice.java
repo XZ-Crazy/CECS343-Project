@@ -28,13 +28,20 @@ public class Invoice
 		this.paymentRequired = paymentRequired;
 		this.totalPaid = totalPaid;
 		this.currentBalance = paymentRequired - totalPaid;
-		this.originalBalance = paymentRequired - totalPaid; // this will never change
+		this.originalBalance = paymentRequired; // this will never change
 	}
 	
+	
+	public void setPaymentRequired(float amount) {
+		this.paymentRequired = amount;
+	}
+	public float getPaymentRequired() {
+		return this.paymentRequired;
+	}
 	public void payInvoice(float amount)
 	{
 		this.totalPaid = totalPaid + amount;
-		this.currentBalance = currentBalance - totalPaid;
+		this.currentBalance = paymentRequired - totalPaid;
 	}
 	
 	public float getCurrentBalance()
@@ -75,5 +82,6 @@ public class Invoice
     {
         return "Customer Name: " + customer.getName() + ", Salesperson: " + salesperson.getName() + ", Product List: " + Arrays.asList(productList) + ", Shipping Address: "
     + shippingAddress + ", Date:" + dateOfPurchase.toString() + ", Payment Required: " + paymentRequired + ", Total Paid: " + totalPaid;
-    }   
+    }
+	
 }
