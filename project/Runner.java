@@ -166,30 +166,8 @@ public class Runner
 		
 		// Testing Warehouse and invoice Controllers
 		System.out.println("\n---Testing Warehouse and invoice Controllers---");
-		WarehouseController.initializeJSONFile(); // creates blank warehouses json file
-		InvoiceController.initializeJSONFile(); // creates blank invoices json file
-		
-		// For warehouse controller
-		HashMap<Product, Integer> inventory1 = new HashMap<>();
-		WarehouseController.addWarehouse(inventory1, "Warehouse 1", "800 Socal Ave", "Los Angeles", "CA", "90035", "5623336425", "1");
-		
-		WarehouseController.serializeJSON();
-		
-		WarehouseController.deserializeJSONFile();
-		ArrayList<Warehouse> warehouseList = WarehouseController.getWarehouses();
-		System.out.println("Warehouse toString() = " + warehouseList.get(0));
-		
-		// for invoice controller
-		HashMap<Product, Integer> productList = new HashMap<>();
-		Customer c1 = new Customer("Sam", (float) 0.0, false);
-		Salesperson s1 = new Salesperson("Dean", (float) 0.0, (float) 0.0, (float) 0.0);
-		InvoiceController.addInvoice(c1, s1, productList, "123 Shit St", (float) 420.69);
-		
-		InvoiceController.serializeJSON();
-		
-		InvoiceController.deserializeJSONFile();
-		ArrayList<Invoice> invoiceList = InvoiceController.getInvoices();
-		System.out.println("Invoince toString() = " + invoiceList.get(0));	
+		WarehouseController.initializeJSONFile();
+		InvoiceController.initializeJSONFile();
 		
 	}
 	
