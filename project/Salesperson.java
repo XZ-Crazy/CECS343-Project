@@ -1,7 +1,7 @@
 /**
  * Salesperson class
  */
-package project;
+
 
 import java.io.Serializable;
 
