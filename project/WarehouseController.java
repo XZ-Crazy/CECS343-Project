@@ -253,20 +253,22 @@ public class WarehouseController
 //		float sellingPrice = 0;
 //		float costPrice = 0;
 //		Product pObj = new Product(name, sellingPrice, costPrice);
-		
+		int count = 0;
+		int otherCount = 0;
 		for(Map.Entry<Product, Integer> products : inventory.entrySet()) {
-			
+			count++;
 			Product product = products.getKey();
 			Integer quantity = products.getValue();
 			
 			if(inventory.containsKey(product) && quantity > 0) {
-				return true;
+				otherCount++;
 			}
 			else if(inventory.isEmpty() || inventory.keySet() == null || inventory.entrySet() == null) {
 				return false;
 			}
 		}
-		return true;
+		if(count == otherCount)
+			return true;
 	}
 	
 	/**
@@ -310,9 +312,7 @@ public class WarehouseController
 			totalStock += "Products: " + prod.getKey() + ", Quantity: " + prod.getValue();
 		}
 		
-		for(int i = 0; i < warehouses.size(); i++) {
-			System.out.println(totalStock);
-		}
+		
 		
 		return totalStock;
 		
@@ -337,6 +337,9 @@ public class WarehouseController
 		HashMap<Product, Integer> inventory = new HashMap<Product, Integer>();
 		String totalLowStock = "";
 		
+		
+		//Check this for loop, i get the idea of what you're trying to do, creating a duplicate inventory to mess with
+		//but the logic of it is wrong, like why are you putting in Product pObj, in the Integer value area
 		for(int i = 0; i < warehouses.size(); i++) {
 			if(!warehouses.isEmpty())
 				inventory.put(products.get(i), inventory.get(pObj));
@@ -361,9 +364,7 @@ public class WarehouseController
 			}
 		}
 		
-		for(int i = 0; i < warehouses.size(); i++) {
-			System.out.println(totalLowStock);
-		}
+		
 		//System.out.println(warehouses);
 		return totalLowStock;
 		//warehouses.add()
@@ -379,13 +380,15 @@ public class WarehouseController
 		HashMap<Product, Integer> inventory = new HashMap<Product, Integer>();
 		String stockIn = "";
 		
+		
+		// I don't know where this iEntry is coming from so idk how to help with this method
 		for(Warehouse w : warehouses) {
 			
 			for(Map.Entry<Product, Integer> iEntry : inventory.entrySet()) {
 				stockIn = "Products: " + iEntry.getKey() + "Values: " + iEntry.getValue();
 			}
 			//w.getInventory().entrySet();
-			System.out.println(w);
+			//System.out.println(w); Again you shouldn't be printing in this method
 		}
 		
 		//System.out.println(stockIn);
