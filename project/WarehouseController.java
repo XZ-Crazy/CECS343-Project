@@ -287,10 +287,10 @@ public class WarehouseController
 //		for(int i = 0; i < warehouses.size(); i++) {
 //			inventory.put(warehouses.get(i))
 //		}
-		for(int i = 0; i < warehouses.size(); i++) {
-			if(!warehouses.isEmpty())
-				inventory.put(products.get(i), inventory.get(pObj));
-		}
+//		for(int i = 0; i < warehouses.size(); i++) {
+//			if(!warehouses.isEmpty())
+//				inventory.put(products.get(i), inventory.get(pObj));
+//		}
 		
 		// Creating a list from elements of inventory hashmap
 		List<Map.Entry<Product, Integer>> sortedProducts = new ArrayList<Map.Entry<Product, Integer>>(inventory.entrySet());
@@ -309,6 +309,11 @@ public class WarehouseController
 //			System.out.println("Products: " + prod.getKey() + ", Quantity: " + prod.getValue());
 			totalStock = "Products: " + prod.getKey() + ", Quantity: " + prod.getValue();
 		}
+		
+		for(int i = 0; i < warehouses.size(); i++) {
+			System.out.println(totalStock);
+		}
+		
 		return totalStock;
 		
 		//return new JSONObject(inventory).toString();
@@ -356,6 +361,9 @@ public class WarehouseController
 			}
 		}
 		
+		for(int i = 0; i < warehouses.size(); i++) {
+			System.out.println(totalLowStock);
+		}
 		//System.out.println(warehouses);
 		return totalLowStock;
 		//warehouses.add()
