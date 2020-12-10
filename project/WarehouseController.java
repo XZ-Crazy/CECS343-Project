@@ -1,4 +1,4 @@
-
+package project;
 
 import java.util.*;
 
@@ -267,8 +267,13 @@ public class WarehouseController
 				return false;
 			}
 		}
-		if(count == otherCount)
+		
+		if(count == otherCount) {
 			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	/**
@@ -311,9 +316,7 @@ public class WarehouseController
 //			System.out.println("Products: " + prod.getKey() + ", Quantity: " + prod.getValue());
 			totalStock += "Products: " + prod.getKey() + ", Quantity: " + prod.getValue();
 		}
-		
-		
-		
+	
 		return totalStock;
 		
 		//return new JSONObject(inventory).toString();
@@ -329,42 +332,62 @@ public class WarehouseController
 	 */
 	public static String printLowStock() {
 		
-		String name = "";
-		float sellingPrice = 0;
-		float costPrice = 0;
-		Product pObj = new Product(name, sellingPrice, costPrice);
+//		String name = "";
+//		float sellingPrice = 0;
+//		float costPrice = 0;
+		//Product pObj = new Product(name, sellingPrice, costPrice);
 		
 		HashMap<Product, Integer> inventory = new HashMap<Product, Integer>();
 		String totalLowStock = "";
 		
-		
-		//Check this for loop, i get the idea of what you're trying to do, creating a duplicate inventory to mess with
-		//but the logic of it is wrong, like why are you putting in Product pObj, in the Integer value area
 		for(int i = 0; i < warehouses.size(); i++) {
-			if(!warehouses.isEmpty())
-				inventory.put(products.get(i), inventory.get(pObj));
+			if(warehouses.get(i).getInventory() == null)
+				inventory.put(products.get(i), inventory.get(products.get(i)));
 		}
 		
-		if(inventory.get(pObj) <= 5) {
+		for(Map.Entry<Product, Integer> products : inventory.entrySet()) {
 			
-			// Creating a list from elements of inventory hashmap
-			List<Map.Entry<Product, Integer>> list = new ArrayList<Map.Entry<Product, Integer>>(inventory.entrySet());
-						
-			// Sort list in ascending order with Java Collections Framework and Comparator interface
-			Collections.sort(list, new Comparator<Map.Entry<Product, Integer>>() {
-				@Override
-				public int compare(Map.Entry<Product, Integer> o1, Map.Entry<Product, Integer> o2) {
-					return o1.getValue().compareTo(o2.getValue());
+			Product product = products.getKey();
+			Integer quantity = products.getValue();
+			
+			if(quantity <= 5) {
+				
+				// Creating a list from elements of inventory hashmap
+				List<Map.Entry<Product, Integer>> list = new ArrayList<Map.Entry<Product, Integer>>(inventory.entrySet());
+							
+				// Sort list in ascending order with Java Collections Framework and Comparator interface
+				Collections.sort(list, new Comparator<Map.Entry<Product, Integer>>() {
+					@Override
+					public int compare(Map.Entry<Product, Integer> o1, Map.Entry<Product, Integer> o2) {
+						return o1.getValue().compareTo(o2.getValue());
+					}
+				});
+				// Put data from sorted list to inventory hashmap using for each loop
+				for(Map.Entry<Product, Integer> prod : list) {
+					inventory.put(prod.getKey(), prod.getValue());
+					totalLowStock += "Products: " + prod.getKey() + ", Quantity: " + prod.getValue() + "\n";
 				}
-			});
-			// Put data from sorted list to inventory hashmap using for each loop
-			for(Map.Entry<Product, Integer> prod : list) {
-				inventory.put(prod.getKey(), prod.getValue());
-				totalLowStock += "Products: " + prod.getKey() + ", Quantity: " + prod.getValue();
 			}
 		}
 		
-		
+//		if(inventory.get(pObj) <= 5) {
+//			
+//			// Creating a list from elements of inventory hashmap
+//			List<Map.Entry<Product, Integer>> list = new ArrayList<Map.Entry<Product, Integer>>(inventory.entrySet());
+//						
+//			// Sort list in ascending order with Java Collections Framework and Comparator interface
+//			Collections.sort(list, new Comparator<Map.Entry<Product, Integer>>() {
+//				@Override
+//				public int compare(Map.Entry<Product, Integer> o1, Map.Entry<Product, Integer> o2) {
+//					return o1.getValue().compareTo(o2.getValue());
+//				}
+//			});
+//			// Put data from sorted list to inventory hashmap using for each loop
+//			for(Map.Entry<Product, Integer> prod : list) {
+//				inventory.put(prod.getKey(), prod.getValue());
+//				totalLowStock += "Products: " + prod.getKey() + ", Quantity: " + prod.getValue() + "\n";
+//			}
+//		}
 		//System.out.println(warehouses);
 		return totalLowStock;
 		//warehouses.add()
@@ -382,17 +405,22 @@ public class WarehouseController
 		
 		
 		// I don't know where this iEntry is coming from so idk how to help with this method
-		for(Warehouse w : warehouses) {
+//		for(Warehouse w : warehouses) {
+//			
+//			for(Map.Entry<Product, Integer> iEntry : inventory.entrySet()) {
+//				stockIn += "Products: " + iEntry.getKey() + "Values: " + iEntry.getValue() + "\n";
+//			}
+//			//w.getInventory().entrySet();
+//			//return stockIn;
+//		}
+		
+		for(int i = 0; i < warehouses.size(); i++) {
 			
-			for(Map.Entry<Product, Integer> iEntry : inventory.entrySet()) {
-				stockIn = "Products: " + iEntry.getKey() + "Values: " + iEntry.getValue();
+			for(Map.Entry<Product, Integer> products : inventory.entrySet()) {
+				stockIn += "Products: " + products.getKey() + "Values: " + products.getValue() + "\n";
 			}
-			//w.getInventory().entrySet();
-			//System.out.println(w); Again you shouldn't be printing in this method
 		}
-		
 		//System.out.println(stockIn);
-		
 		return stockIn;
 	}
 }
