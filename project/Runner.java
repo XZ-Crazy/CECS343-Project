@@ -172,169 +172,169 @@ public class Runner
 		*/
 		
 		// Writing JSON File
-//		System.out.println("---Write JSON File---");
-//		ArrayList <Customer> customerList = new ArrayList<>();
-//		customerList.add(new Customer("Samuel Garcia", (float) 0.0, false));
-//		customerList.add(new Customer("Steven", (float) 0.0, false));
-//		customerList.add(new Customer("Alex", (float) 0.0, false));
-//		customerList.add(new Customer("Anthony", (float) 0.0, false));
-//		writeJSONFile(customerList, "customer");
-//		System.out.println("Customer JSON File created");
-//		
-//		ArrayList <Salesperson> salespersonList = new ArrayList<>();
-//		salespersonList.add(new Salesperson("Samuel Winchester", (float) 0.0, (float) 0.0, (float) 0.0));
-//		salespersonList.add(new Salesperson("Dean Winchester", (float) 0.0, (float) 0.0, (float) 0.0));
-//		writeJSONFile(salespersonList, "salesperson");
-//		System.out.println("Salesperson JSON File created");
-//		
-//		System.out.println("\nOriginal salesperson list");
-//		printSalespersonList(); 
-//		System.out.println("\nOriginal customer list");
-//		printCustomerList();
-//		
-//		System.out.println("\nUpdated salersperson list");
-//		addSalesperson(new Salesperson("Castiel", (float) 0.0, (float) 0.0, (float) 0.0));
-//		printSalespersonList();
-//		System.out.println("\nUpdated customer list");
-//		addCustomer(new Customer("Garth", (float) 0.0, false));
-//		printCustomerList(); // this is not printing garth
-//		
-//		
-//		// Reading JSON File
-//		System.out.println("\n---Read JSON File---");
-//		String customerJsonString = readJSONFile("customer").toJSONString();
-//		System.out.println(customerJsonString);
-//		
-//		Gson gson = new Gson();
-//		Type customerType = new TypeToken<ArrayList<Customer>>(){}.getType();
-//		ArrayList <Customer> readCustomerList = gson.fromJson(customerJsonString, customerType);
-//		System.out.println(readCustomerList.get(0)); 
-//		
-//		// Testing Warehouse and invoice Controllers
-//		System.out.println("\n---Testing Warehouse and invoice Controllers---");
-//		WarehouseController.initializeJSONFile(); // creates blank warehouses json file
-//		InvoiceController.initializeJSONFile(); // creates blank invoices json file
-//		
-//		// For warehouse controller
-//		HashMap<Product, Integer> inventory1 = new HashMap<>();
-//		WarehouseController.addWarehouse(inventory1, "Warehouse 1", "800 Socal Ave", "Los Angeles", "CA", "90035", "5623336425", "1");
-//		
-//		WarehouseController.serializeJSON();
-//		
-//		WarehouseController.deserializeJSONFile();
-//		ArrayList<Warehouse> warehouseList = WarehouseController.getWarehouses();
-//		System.out.println("Warehouse toString() = " + warehouseList.get(0));
-//		
-//		// for invoice controller
-//		HashMap<Product, Integer> productList = new HashMap<>();
-//		Customer c1 = new Customer("Sam", (float) 0.0, false);
-//		Salesperson s1 = new Salesperson("Dean", (float) 0.0, (float) 0.0, (float) 0.0);
-//		InvoiceController.addInvoice(c1, s1, productList, "123 Shit St", (float) 420.69);
-//		
-//		InvoiceController.serializeJSON();
-//		
-//		InvoiceController.deserializeJSONFile();
-//		ArrayList<Invoice> invoiceList = InvoiceController.getInvoices();
-//		System.out.println("Invoince toString() = " + invoiceList.get(0));
-//		
-//	}
-//	
-//	public static void writeJSONFile(Object obj, String className) 
-//	{
-//		Gson gson = new Gson();
-//		String gsonString = gson.toJson(obj);
-//		try(FileWriter file = new FileWriter(className + ".json"))
-//		{
-//			file.write(gsonString);
-//			file.flush();
-//		}
-//		catch(IOException e)
-//		{
-//			e.printStackTrace();
-//		}
-//	}
-//	
-//	public static JSONArray readJSONFile(String className)
-//	{
-//		JSONParser jsonP = new JSONParser();
-//		JSONArray jsonArray = null;
-//		
-//		try(FileReader reader = new FileReader(className + ".json"))
-//		{
-//			//Read JSON File
-//			Object obj = jsonP.parse(reader);
-//			jsonArray = (JSONArray) obj;
-//		}
-//		catch (FileNotFoundException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		catch (IOException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		catch (ParseException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		
-//		return jsonArray;
-//	}
-//	
-//	public static void addSalesperson(Salesperson salesperson)
-//	{
-//		// reads in json file
-//		String salespersonJsonString = readJSONFile("salesperson").toJSONString();
-//		Gson gson = new Gson();
-//		Type salespersonType = new TypeToken<ArrayList<Salesperson>>(){}.getType();
-//		ArrayList <Salesperson> readSalespersonList = gson.fromJson(salespersonJsonString, salespersonType);
-//		readSalespersonList.add(salesperson);
-//		
-//		// updates json file
-//		writeJSONFile(readSalespersonList, "salesperson");
-//	}
-//	
-//	public static void addCustomer(Customer customer)
-//	{
-//		// reads in json file
-//		String jsonString = readJSONFile("customer").toJSONString();
-//		Gson gson = new Gson();
-//		Type type = new TypeToken<ArrayList<Customer>>(){}.getType();
-//		ArrayList <Customer> readCustomerList = gson.fromJson(jsonString, type);
-//		readCustomerList.add(customer);
-//		
-//		// updates json file
-//		writeJSONFile(readCustomerList, "customer");
-//	}
-//
-//	public static void printSalespersonList()
-//	{
-//		// reads in json file
-//		String salespersonJsonString = readJSONFile("salesperson").toJSONString();
-//		Gson gson = new Gson();
-//		Type salespersonType = new TypeToken<ArrayList<Salesperson>>(){}.getType();
-//		ArrayList <Customer> readSalespersonList = gson.fromJson(salespersonJsonString, salespersonType);
-//		
-//		// prints each element in array list
-//		for (int i = 0; i < readSalespersonList.size(); i++)
-//		{
-//			System.out.println(readSalespersonList.get(i));
-//		}
-//	}
-//	
-//	public static void printCustomerList()
-//	{
-//		// reads in json file
-//		String jsonString = readJSONFile("customer").toJSONString();
-//		Gson gson = new Gson();
-//		Type type = new TypeToken<ArrayList<Customer>>(){}.getType();
-//		ArrayList <Customer> readCustomerList = gson.fromJson(jsonString, type);
-//		
-//		// prints each element in array list
-//		for (int i = 0; i < readCustomerList.size(); i++)
-//		{
-//			System.out.println(readCustomerList.get(i));
-//		}
+		System.out.println("---Write JSON File---");
+		ArrayList <Customer> customerList = new ArrayList<>();
+		customerList.add(new Customer("Samuel Garcia", (float) 0.0, false));
+		customerList.add(new Customer("Steven", (float) 0.0, false));
+		customerList.add(new Customer("Alex", (float) 0.0, false));
+		customerList.add(new Customer("Anthony", (float) 0.0, false));
+		writeJSONFile(customerList, "customer");
+		System.out.println("Customer JSON File created");
+		
+		ArrayList <Salesperson> salespersonList = new ArrayList<>();
+		salespersonList.add(new Salesperson("Samuel Winchester", (float) 0.0, (float) 0.0, (float) 0.0));
+		salespersonList.add(new Salesperson("Dean Winchester", (float) 0.0, (float) 0.0, (float) 0.0));
+		writeJSONFile(salespersonList, "salesperson");
+		System.out.println("Salesperson JSON File created");
+		
+		System.out.println("\nOriginal salesperson list");
+		printSalespersonList(); 
+		System.out.println("\nOriginal customer list");
+		printCustomerList();
+		
+		System.out.println("\nUpdated salersperson list");
+		addSalesperson(new Salesperson("Castiel", (float) 0.0, (float) 0.0, (float) 0.0));
+		printSalespersonList();
+		System.out.println("\nUpdated customer list");
+		addCustomer(new Customer("Garth", (float) 0.0, false));
+		printCustomerList(); // this is not printing garth
+		
+		
+		// Reading JSON File
+		System.out.println("\n---Read JSON File---");
+		String customerJsonString = readJSONFile("customer").toJSONString();
+		System.out.println(customerJsonString);
+		
+		Gson gson = new Gson();
+		Type customerType = new TypeToken<ArrayList<Customer>>(){}.getType();
+		ArrayList <Customer> readCustomerList = gson.fromJson(customerJsonString, customerType);
+		System.out.println(readCustomerList.get(0)); 
+		
+		// Testing Warehouse and invoice Controllers
+		System.out.println("\n---Testing Warehouse and invoice Controllers---");
+		WarehouseController.initializeJSONFile(); // creates blank warehouses json file
+		InvoiceController.initializeJSONFile(); // creates blank invoices json file
+		
+		// For warehouse controller
+		HashMap<Product, Integer> inventory1 = new HashMap<>();
+		WarehouseController.addWarehouse(inventory1, "Warehouse 1", "800 Socal Ave", "Los Angeles", "CA", "90035", "5623336425", "1");
+		
+		WarehouseController.serializeJSON();
+		
+		WarehouseController.deserializeJSONFile();
+		ArrayList<Warehouse> warehouseList = WarehouseController.getWarehouses();
+		System.out.println("Warehouse toString() = " + warehouseList.get(0));
+		
+		// for invoice controller
+		HashMap<Product, Integer> productList = new HashMap<>();
+		Customer c1 = new Customer("Sam", (float) 0.0, false);
+		Salesperson s1 = new Salesperson("Dean", (float) 0.0, (float) 0.0, (float) 0.0);
+		InvoiceController.addInvoice(c1, s1, productList, "123 Shit St", (float) 420.69);
+		
+		InvoiceController.serializeJSON();
+		
+		InvoiceController.deserializeJSONFile();
+		ArrayList<Invoice> invoiceList = InvoiceController.getInvoices();
+		System.out.println("Invoince toString() = " + invoiceList.get(0));
+		
+	}
+	
+	public static void writeJSONFile(Object obj, String className) 
+	{
+		Gson gson = new Gson();
+		String gsonString = gson.toJson(obj);
+		try(FileWriter file = new FileWriter(className + ".json"))
+		{
+			file.write(gsonString);
+			file.flush();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public static JSONArray readJSONFile(String className)
+	{
+		JSONParser jsonP = new JSONParser();
+		JSONArray jsonArray = null;
+		
+		try(FileReader reader = new FileReader(className + ".json"))
+		{
+			//Read JSON File
+			Object obj = jsonP.parse(reader);
+			jsonArray = (JSONArray) obj;
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		catch (ParseException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return jsonArray;
+	}
+	
+	public static void addSalesperson(Salesperson salesperson)
+	{
+		// reads in json file
+		String salespersonJsonString = readJSONFile("salesperson").toJSONString();
+		Gson gson = new Gson();
+		Type salespersonType = new TypeToken<ArrayList<Salesperson>>(){}.getType();
+		ArrayList <Salesperson> readSalespersonList = gson.fromJson(salespersonJsonString, salespersonType);
+		readSalespersonList.add(salesperson);
+		
+		// updates json file
+		writeJSONFile(readSalespersonList, "salesperson");
+	}
+	
+	public static void addCustomer(Customer customer)
+	{
+		// reads in json file
+		String jsonString = readJSONFile("customer").toJSONString();
+		Gson gson = new Gson();
+		Type type = new TypeToken<ArrayList<Customer>>(){}.getType();
+		ArrayList <Customer> readCustomerList = gson.fromJson(jsonString, type);
+		readCustomerList.add(customer);
+		
+		// updates json file
+		writeJSONFile(readCustomerList, "customer");
+	}
+
+	public static void printSalespersonList()
+	{
+		// reads in json file
+		String salespersonJsonString = readJSONFile("salesperson").toJSONString();
+		Gson gson = new Gson();
+		Type salespersonType = new TypeToken<ArrayList<Salesperson>>(){}.getType();
+		ArrayList <Customer> readSalespersonList = gson.fromJson(salespersonJsonString, salespersonType);
+		
+		// prints each element in array list
+		for (int i = 0; i < readSalespersonList.size(); i++)
+		{
+			System.out.println(readSalespersonList.get(i));
+		}
+	}
+	
+	public static void printCustomerList()
+	{
+		// reads in json file
+		String jsonString = readJSONFile("customer").toJSONString();
+		Gson gson = new Gson();
+		Type type = new TypeToken<ArrayList<Customer>>(){}.getType();
+		ArrayList <Customer> readCustomerList = gson.fromJson(jsonString, type);
+		
+		// prints each element in array list
+		for (int i = 0; i < readCustomerList.size(); i++)
+		{
+			System.out.println(readCustomerList.get(i));
+		}
 	}
 }
 
