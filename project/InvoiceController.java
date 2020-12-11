@@ -238,21 +238,21 @@ public class InvoiceController
 		
 	
 	
+	
 	public static boolean isDelinquent(Customer customer) {
-		return customer.getDelinquencyStatus();
-		/* I wrote this without thinking about what this method wanted, if we need it later we can use it
-		 * It's basically a DelinquentStatusChanger based off customer
+		
 		Date temp = new Date();
 		Date check = new Date();
 		for(int i = 0; i < invoices.size(); i++) {
-			if(invoices.get(i).getCustomer().equals(customer))
+			if(invoices.get(i).getCustomer().equals(customer) && invoices.get(i).getCurrentBalance() != 0)
 				temp = invoices.get(i).getDateOfPurchase();
 		}
 		long diff = Math.abs(temp.getTime() - check.getTime());
 		int diffDays = (int) (diff / 24 * 60 * 60 * 1000);
 		if(diffDays > 30)
 			customer.setDelinquencyStatus(true);
-		 */
+		return customer.getDelinquencyStatus();
+		 
 	}
 	
 	public static boolean makePayment(Invoice invoice, float payment) {
@@ -338,8 +338,8 @@ public class InvoiceController
 	public static String printEmployeeSales() {
 		String temp = "";
 		for(int i = 0; i < salespersons.size(); i++) {
-			temp += "Name: " + salespersons.get(i).getName() + " Total Sales: " + salespersons.get(i).getTotalSales() + 
-					" Total Commission: " + salespersons.get(i).getTotalCommission() + "\n";
+			temp += "Name: " + salespersons.get(i).getName() + "\nTotal Sales: " + salespersons.get(i).getTotalSales() + 
+					"\nTotal Commission: " + salespersons.get(i).getTotalCommission() + "\n";
 		}
 		return temp;
 	}
