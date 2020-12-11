@@ -295,7 +295,7 @@ public class WarehouseController
 			// Put data from sorted list to inventory hashmap using for each loop
 			for(Map.Entry<Product, Integer> prod : sortedProducts) {
 				inventory.put(prod.getKey(), prod.getValue());
-				totalStock += "\n" + prod.getKey() + ", Quantity: " + prod.getValue() + "\n";
+				totalStock +=  prod.getKey() + "Quantity: " + prod.getValue() + "\n";
 			}
 		}
 		
@@ -341,7 +341,7 @@ public class WarehouseController
 					if(quantity <= 5) {
 						
 						inventory.put(product, quantity);
-						totalLowStock += "\n" + product + ", Quantity: " + quantity + "\n";
+						totalLowStock += product + "Quantity: " + quantity + "\n";
 					}
 				}
 			//}
@@ -364,7 +364,7 @@ public class WarehouseController
 			inventory = w.getInventory();
 			
 			for(Map.Entry<Product, Integer> products : inventory.entrySet()) {
-				stockIn += "\n" + products.getKey() + ", Quantity: " + products.getValue() + "\n";
+				stockIn += products.getKey() + "Quantity: " + products.getValue() + "\n";
 			}
 		}
 		

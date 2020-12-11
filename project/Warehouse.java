@@ -163,7 +163,7 @@ public class Warehouse {
 	@Override
 	public String toString() {
 		
-		return "Inventory Name and ID:" + inventory + ", Warehouse Name: " + name + ", Address: " + this.getAddress() + 
-				", Phone Number: " + phoneNumber + ", Warehouse ID: " + warehouseID;
+		return "\nInventory Name and ID:" + inventory + "\nWarehouse Name: " + name + "\nAddress: " + this.getAddress() + 
+				"\nPhone Number: " + phoneNumber + "\nWarehouse ID: " + warehouseID + "\n";
 	}
 }
