@@ -40,7 +40,7 @@ import java.lang.reflect.Type;
 
 public class Runner 
 {
-	public static void main(String[] args) //throws JSONException 
+	public static void main(String[] args) //throws ClassCastException //throws JSONException 
 	{
 		System.out.println("---Creates new customer---");
 		Customer Sam = new Customer("Samuel Winchester", (float) 0.1, false);
@@ -80,14 +80,18 @@ public class Runner
 		ArrayList<Warehouse> w = WarehouseController.getWarehouses();
 		//Warehouse[] wArr = (Warehouse[]) w.toArray();
 		//Warehouse temp = (Warehouse) w.clone();
-		Warehouse tempW = new Warehouse(inventory, "Warehouse temp", "800 Socal Ave", "Los Angeles", "CA", "90035", "5623336425", "1");
-		System.out.println(WarehouseController.addProduct("Blueberry", 200.00f, 100.00f));
-		//ArrayList<Product> p = WarehouseController.getProducts();
+		Warehouse tempW = new Warehouse(inventory, "Warehouse 2", "1600 Hollywood Ave", "Los Angeles", "CA", "90053", "32333479672", "2");
+		WarehouseController.addProduct("Blueberry", 200.00f, 100.00f);
+		WarehouseController.addProduct("Pizza", 5.00f, 55.00f);
+		WarehouseController.addProduct("Apple", 2.00f, 100.00f);
+		System.out.println(WarehouseController.getProducts());
 		//Product[] pArr = (Product[]) p.toArray();
 		WarehouseController.addStock(tempW, inventory);
 		System.out.println(WarehouseController.printTotalStock());
 		System.out.println(WarehouseController.printLowStock());
 		System.out.println(WarehouseController.printStockIn());
+		Product chocopie = new Product("Choco Pie", (float) 1.50, (float) 5.00);
+		inventory.put(chocopie, 1);
 		System.out.println(WarehouseController.checkInStock(inventory));
 		//Warehouse w1 = new Warehouse();
 		//Warehouse w1 = new Warehouse();
