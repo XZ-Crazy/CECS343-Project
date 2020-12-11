@@ -80,8 +80,8 @@ public class Invoice
 	}
 	public String toString()
     {
-        return "Customer Name: " + customer.getName() + ", Salesperson: " + salesperson.getName() + ", Product List: " + Arrays.asList(productList) + ", Shipping Address: "
-    + shippingAddress + ", Date:" + dateOfPurchase.toString() + ", Payment Required: " + paymentRequired + ", Total Paid: " + totalPaid;
+        return "Customer Name: " + customer.getName() + "\nSalesperson: " + salesperson.getName() + "\nProduct List: " + Arrays.asList(productList) + "\nShipping Address: "
+    + shippingAddress + "\nDate:" + dateOfPurchase.toString() + "\nPayment Required: " + paymentRequired + "\nTotal Paid: " + totalPaid;
     }
 	
 }
