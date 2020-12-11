@@ -1,3 +1,5 @@
+package project;
+
 /**
  * Salesperson class
  */

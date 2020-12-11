@@ -1,4 +1,4 @@
-
+package project;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,12 +16,12 @@ import org.json.simple.parser.ParseException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import WarehouseApp.Customer;
-import WarehouseApp.Invoice;
-import WarehouseApp.Product;
-import WarehouseApp.Salesperson;
-import WarehouseApp.Warehouse;
-import project.InvoiceController;
+//import project.Customer;
+//import project.Invoice;
+import project.Product;
+//import project.Salesperson;
+import project.Warehouse;
+//import project.InvoiceController;
 import project.WarehouseController;
 
 import java.io.FileNotFoundException;
@@ -40,7 +40,7 @@ import java.lang.reflect.Type;
 
 public class Runner 
 {
-	public static void main(String[] args) //throws JSONException 
+	public static void main(String[] args) //throws ClassCastException //throws JSONException 
 	{
 		System.out.println("---Creates new customer---");
 		Customer Sam = new Customer("Samuel Winchester", (float) 0.1, false);
@@ -77,13 +77,27 @@ public class Runner
 		//Warehouse w1 = new Warehouse();
 		
 		System.out.println(WarehouseController.addWarehouse(inventory, "Warehouse 1", "800 Socal Ave", "Los Angeles", "CA", "90035", "5623336425", "1"));
-		System.out.println(WarehouseController.getWarehouses());
-		System.out.println(WarehouseController.addProduct("Blueberry", 200.00f, 100.00f));
-		System.out.println(WarehouseController.getProducts());
+		ArrayList<Warehouse> w = WarehouseController.getWarehouses();
+		//Warehouse[] wArr = (Warehouse[]) w.toArray();
+		//Warehouse temp = (Warehouse) w.clone();
+		/* I had to create a new Warehouse by creating a new Warehouse object since addStock has Warehouse warehouse as one of its parameters*/
+		Warehouse tempW = new Warehouse(inventory, "Warehouse 2", "1600 Hollywood Ave", "Los Angeles", "CA", "90053", "32333479672", "2");
+		WarehouseController.addProduct("Blueberry", 200.00f, 100.00f);
+		WarehouseController.addProduct("Pizza", 5.00f, 55.00f);
+		WarehouseController.addProduct("Apple", 2.00f, 100.00f);
+		//System.out.println(WarehouseController.getProducts());
+		//Product[] pArr = (Product[]) p.toArray();
+		WarehouseController.addStock(tempW, inventory);
+		System.out.println(WarehouseController.printTotalStock());
+		System.out.println(WarehouseController.printLowStock());
+		System.out.println(WarehouseController.printStockIn());
+//		Product chocopie = new Product("Choco Pie", (float) 1.50, (float) 5.00);
+//		inventory.put(chocopie, 1);
+		System.out.println(WarehouseController.checkInStock(inventory));
 		//Warehouse w1 = new Warehouse();
 		//Warehouse w1 = new Warehouse();
 		//Product prod = new Product("pizza", 5.00f, 100.00f);
-		ArrayList<Warehouse> w = new ArrayList<Warehouse>();
+		//ArrayList<Warehouse> w = new ArrayList<Warehouse>();
 		//WarehouseController.addStock(prod, 1);
 		//System.out.println(WarehouseController.checkInStock(inventory));
 		//System.out.println(WarehouseController.getProducts());
@@ -175,8 +189,8 @@ public class Runner
 		InvoiceController.initializeJSONFile(); // creates blank invoices json file
 		
 		// For warehouse controller
-		HashMap<Product, Integer> inventory = new HashMap<>();
-		WarehouseController.addWarehouse(inventory, "Warehouse 1", "800 Socal Ave", "Los Angeles", "CA", "90035", "5623336425", "1");
+		HashMap<Product, Integer> inventory1 = new HashMap<>();
+		WarehouseController.addWarehouse(inventory1, "Warehouse 1", "800 Socal Ave", "Los Angeles", "CA", "90035", "5623336425", "1");
 		
 		WarehouseController.serializeJSON();
 		
