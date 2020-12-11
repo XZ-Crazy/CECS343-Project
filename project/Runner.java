@@ -55,7 +55,7 @@ public class Runner
 		System.out.println("Current delinquency status of " + Sam.getName() + " = " + Sam.getDelinquencyStatus());
 		
 //		System.out.println("\n---Creates new warehouse---");
-		HashMap<Product, Integer> inventory = new HashMap<>();
+		HashMap<Product, Integer> inventory = new HashMap<Product, Integer>();
 //		Product apple = new Product("Apple", (float) 2.00, (float) 10.00);
 //		inventory.put(apple, 1);
 //		Warehouse w1 = new Warehouse(inventory, "Warehouse 1", "800 Socal Ave", "Los Angeles", "CA", "90035", "5623336425", "1");
@@ -77,23 +77,50 @@ public class Runner
 		//Warehouse w1 = new Warehouse();
 		
 		System.out.println(WarehouseController.addWarehouse(inventory, "Warehouse 1", "800 Socal Ave", "Los Angeles", "CA", "90035", "5623336425", "1"));
-		ArrayList<Warehouse> w = WarehouseController.getWarehouses();
 		//Warehouse[] wArr = (Warehouse[]) w.toArray();
 		//Warehouse temp = (Warehouse) w.clone();
 		/* I had to create a new Warehouse by creating a new Warehouse object since addStock has Warehouse warehouse as one of its parameters*/
 		Warehouse tempW = new Warehouse(inventory, "Warehouse 2", "1600 Hollywood Ave", "Los Angeles", "CA", "90053", "32333479672", "2");
-		WarehouseController.addProduct("Blueberry", 200.00f, 100.00f);
-		WarehouseController.addProduct("Pizza", 5.00f, 55.00f);
-		WarehouseController.addProduct("Apple", 2.00f, 100.00f);
-		//System.out.println(WarehouseController.getProducts());
+		System.out.println("Warehouse created: -> " + tempW);
+		//System.out.println(WarehouseController.getWarehouses());
+//		ArrayList<Warehouse> w = WarehouseController.getWarehouses();
+//		System.out.println(WarehouseController.addProduct("Blueberry", 200.00f, 100.00f));
+//		System.out.println(WarehouseController.addProduct("Pizza", 5.00f, 55.00f));
+//		System.out.println(WarehouseController.addProduct("Apple", 2.00f, 100.00f));
+//		System.out.println(WarehouseController.getProducts());
 		//Product[] pArr = (Product[]) p.toArray();
-		WarehouseController.addStock(tempW, inventory);
+		Product apple = new Product("Apple", (float) 2.00, (float) 10.00);
+		Product chocopie = new Product("Choco Pie", (float) 1.50, (float) 5.00);
+		inventory.put(apple, 4);
+		inventory.put(chocopie, 2);
+		System.out.println(tempW.getInventory());
+		System.out.println("\n-----Printing Total Stock-----");
 		System.out.println(WarehouseController.printTotalStock());
+		System.out.println("-----Adding Stock-----\n");
+		WarehouseController.addStock(tempW, inventory);
+		System.out.println("-----Printing Updated Total Stock-----");
+		System.out.println(WarehouseController.printTotalStock());
+		System.out.println("-----Printing Low Stock-----");
 		System.out.println(WarehouseController.printLowStock());
+		System.out.println("-----Checking If Stock In Inventory-----");
+		System.out.println(WarehouseController.checkInStock(inventory));
+		HashMap<Product, Integer> inventory2 = new HashMap<Product, Integer>();
+		//Warehouse w3 = new Warehouse(inventory2, "Warehouse 3", "123 Broadway Ave", "Hoolywood", "CA", "90068", "32334442798", "3");
+		//System.out.println("Warehouse created: -> " + w3);
+		WarehouseController.addWarehouse(inventory2, "Warehouse 3", "123 Broadway Ave", "Hoolywood", "CA", "90068", "32334442798", "3");
+		System.out.println("-----Warehouses-----");
+		System.out.println(WarehouseController.getWarehouses());
+		Product kirby = new Product("kirby", (float) 1000.00, (float) 10000.00);
+		Product tv = new Product("tv", (float) 40.00, (float) 200.00);
+		inventory2.put(kirby, 5);
+		inventory2.put(tv, 2);
+		System.out.println("-----Printing Stock by Warehouse-----");
 		System.out.println(WarehouseController.printStockIn());
+		
+//		System.out.println(WarehouseController.printStockIn());
 //		Product chocopie = new Product("Choco Pie", (float) 1.50, (float) 5.00);
 //		inventory.put(chocopie, 1);
-		System.out.println(WarehouseController.checkInStock(inventory));
+//		System.out.println(WarehouseController.checkInStock(inventory));
 		//Warehouse w1 = new Warehouse();
 		//Warehouse w1 = new Warehouse();
 		//Product prod = new Product("pizza", 5.00f, 100.00f);
