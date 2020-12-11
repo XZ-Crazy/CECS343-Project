@@ -295,7 +295,7 @@ public class WarehouseController
 			// Put data from sorted list to inventory hashmap using for each loop
 			for(Map.Entry<Product, Integer> prod : sortedProducts) {
 				inventory.put(prod.getKey(), prod.getValue());
-				totalStock += "\nProduct: " + prod.getKey() + ", Quantity: " + prod.getValue() + "\n";
+				totalStock += "\n" + prod.getKey() + ", Quantity: " + prod.getValue() + "\n";
 			}
 		}
 		
@@ -321,30 +321,30 @@ public class WarehouseController
 			
 			inventory = warehouses.get(i).getInventory();
 			
-			for(Map.Entry<Product, Integer> products : inventory.entrySet()) {
+			//if(inventory.get(prod) <= 5) {
 				
-				Product product = products.getKey();
-				Integer quantity = products.getValue();
-				
-				if(quantity <= 5) {
+				// Creating a list from elements of inventory hashmap
+				List<Map.Entry<Product, Integer>> list = new ArrayList<Map.Entry<Product, Integer>>(inventory.entrySet());
+							
+				// Sort list in ascending order with Java Collections Framework and Comparator interface
+				Collections.sort(list, new Comparator<Map.Entry<Product, Integer>>() {
+					@Override
+					public int compare(Map.Entry<Product, Integer> o1, Map.Entry<Product, Integer> o2) {
+						return o1.getValue().compareTo(o2.getValue());
+					}
+				});
+				// Put data from sorted list to inventory hashmap using for each loop
+				for(Map.Entry<Product, Integer> prod : list) {
+					Product product = prod.getKey();
+					Integer quantity = prod.getValue();
 					
-					// Creating a list from elements of inventory hashmap
-					List<Map.Entry<Product, Integer>> list = new ArrayList<Map.Entry<Product, Integer>>(inventory.entrySet());
-								
-					// Sort list in ascending order with Java Collections Framework and Comparator interface
-					Collections.sort(list, new Comparator<Map.Entry<Product, Integer>>() {
-						@Override
-						public int compare(Map.Entry<Product, Integer> o1, Map.Entry<Product, Integer> o2) {
-							return o1.getValue().compareTo(o2.getValue());
-						}
-					});
-					// Put data from sorted list to inventory hashmap using for each loop
-					for(Map.Entry<Product, Integer> prod : list) {
-						inventory.put(prod.getKey(), prod.getValue());
-						totalLowStock += "Product: " + prod.getKey() + ", Quantity: " + prod.getValue() + "\n";
+					if(quantity <= 5) {
+						
+						inventory.put(product, quantity);
+						totalLowStock += "\n" + product + ", Quantity: " + quantity + "\n";
 					}
 				}
-			}
+			//}
 		}
 		return totalLowStock;
 	}
@@ -364,7 +364,7 @@ public class WarehouseController
 			inventory = w.getInventory();
 			
 			for(Map.Entry<Product, Integer> products : inventory.entrySet()) {
-				stockIn += "Product: " + products.getKey() + ", Quantity: " + products.getValue() + "\n";
+				stockIn += "\n" + products.getKey() + ", Quantity: " + products.getValue() + "\n";
 			}
 		}
 		
@@ -373,9 +373,10 @@ public class WarehouseController
 //			inventory = warehouses.get(i).getInventory();
 //			
 //			for(Map.Entry<Product, Integer> products : inventory.entrySet()) {
-//				stockIn += "Products: " + products.getKey() + "Values: " + products.getValue() + "\n";
+//				stockIn += "\n " + products.getKey() + ", Quantity: " + products.getValue() + "\n";
 //			}
 //		}
+		
 		return stockIn;
 	}
 }
