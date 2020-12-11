@@ -80,18 +80,19 @@ public class Runner
 		ArrayList<Warehouse> w = WarehouseController.getWarehouses();
 		//Warehouse[] wArr = (Warehouse[]) w.toArray();
 		//Warehouse temp = (Warehouse) w.clone();
+		/* I had to create a new Warehouse by creating a new Warehouse object since addStock has Warehouse warehouse as one of its parameters*/
 		Warehouse tempW = new Warehouse(inventory, "Warehouse 2", "1600 Hollywood Ave", "Los Angeles", "CA", "90053", "32333479672", "2");
 		WarehouseController.addProduct("Blueberry", 200.00f, 100.00f);
 		WarehouseController.addProduct("Pizza", 5.00f, 55.00f);
 		WarehouseController.addProduct("Apple", 2.00f, 100.00f);
-		System.out.println(WarehouseController.getProducts());
+		//System.out.println(WarehouseController.getProducts());
 		//Product[] pArr = (Product[]) p.toArray();
 		WarehouseController.addStock(tempW, inventory);
 		System.out.println(WarehouseController.printTotalStock());
 		System.out.println(WarehouseController.printLowStock());
 		System.out.println(WarehouseController.printStockIn());
-		Product chocopie = new Product("Choco Pie", (float) 1.50, (float) 5.00);
-		inventory.put(chocopie, 1);
+//		Product chocopie = new Product("Choco Pie", (float) 1.50, (float) 5.00);
+//		inventory.put(chocopie, 1);
 		System.out.println(WarehouseController.checkInStock(inventory));
 		//Warehouse w1 = new Warehouse();
 		//Warehouse w1 = new Warehouse();
