@@ -258,20 +258,32 @@ public class InvoiceController
 	public static boolean makePayment(Invoice invoice, float payment) {
 		if(invoices.contains(invoice)) {
 			Date curr = new Date();
-			// To find if this payment is within 10 days of making the purchase to deduct 10% and completely pays it off
 			int diffDays = (int) (Math.abs(invoice.getDateOfPurchase().getTime() - curr.getTime()) / (24 * 60 * 60 * 1000) );
-			// May have to adjust invoice.payInvoice(invoice.getCurrentBalance()); to make currentBalance = 0
+			
+			// To find if this payment is within 10 days of making the purchase to deduct 10% and completely pays it off
 			if(invoice.getCurrentBalance() == payment && diffDays <= 10) {
 				float nPay = (float) (invoice.getPaymentRequired() * .90);
 				invoice.setPaymentRequired(nPay);
 				invoice.payInvoice(invoice.getCurrentBalance());
 				return true;
 			}
+			
+			// To update the invoice to be 1.02^^the days since dateOfPurchase divided by 30, we have paymentRequired
+			// which is the amount that needs to be paid and originalBalance which is the originalPaymentRequired that never changes to
+			// alter every time makePayment is called depending on how many days has passed
+			double late = (double) (Math.floorDiv(diffDays, 30));
+			double charge = (double) (1.02);
+			float amount = (float) (Math.pow(charge, late) * invoice.getOriginalBalance());
+			if(30 <= diffDays)
+				invoice.setPaymentRequired(amount);
+				
+			
 			invoice.payInvoice(payment);
 			return true;
 		}
 		else
 			return false;
+		
 	}
 	
 	public static String printOpenInvoices() {
